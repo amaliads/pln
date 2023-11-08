@@ -4,6 +4,7 @@
     <script src="{{asset('template/assets/vendor/libs/popper/popper.js')}}"></script>
     <script src="{{asset('template/assets/vendor/js/bootstrap.js')}}"></script>
     <script src="{{asset('template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
+    <link rel="stylesheet" href="assets/vendor/fonts/boxicons.css" />
 
     <script src="{{asset('template/assets/vendor/js/menu.js')}}"></script>
     <!-- endbuild -->
@@ -19,3 +20,5 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="{{asset('template/https://buttons.github.io/buttons.js')}}"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/boxicons/2.0.7/css/boxicons.min.css">

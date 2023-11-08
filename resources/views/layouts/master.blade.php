@@ -14,7 +14,7 @@
 <!-- beautify ignore:start -->
 <html
   lang="en"
-  class="light-style layout-menu-fixed"
+  class="dark-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
   data-assets-path="../assets/"
@@ -84,5 +84,7 @@
     <!-- / Layout wrapper -->
 
     @include('partials.scripts')
+
+    <script src="{{ asset('js/data_penerimaan.js')}}"></script>
   </body>
 </html>
