@@ -57,22 +57,38 @@ class DataMitraController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'jenis_barang' => 'required|string',
+            'mitra_pengirim' => 'required|string',
+            'kelengkapan_barang' => 'required|string',
+            'tanggal_penerimaan' => 'required|date',
+            'yang_menerima' => 'required|string',
+        ]);
+    
         $data_mitra = DataMitra::find($id);
+    
+        if (!$data_mitra) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan.');
+        }
+    
+        // Menyimpan data setelah validasi
         $data_mitra->mitra_pengirim = $request->mitra_pengirim;
         $data_mitra->jenis_barang = $request->jenis_barang;
         $data_mitra->merk_barang = $request->merk_barang;
-        $data_mitra->type_barang = $request->type_barang; // Mengganti urutan field
+        $data_mitra->type_barang = $request->type_barang;
         $data_mitra->jumlah_barang = $request->jumlah_barang;
         $data_mitra->serial_number = $request->serial_number;
         $data_mitra->kelengkapan_barang = $request->kelengkapan_barang;
         $data_mitra->tanggal_penerimaan = $request->tanggal_penerimaan;
         $data_mitra->yang_menerima = $request->yang_menerima;
         $data_mitra->save();
-
-        Session::flash('flash_type', 'update');
-        Session::flash('flash_message', 'Data Berhasil Di Update');
-        return redirect('data_mitra')->with(['flash_message' => 'Data Berhasil Di Update', 'flash_color' => 'info']);
-    }
+    
+        // Menampilkan pesan kesuksesan
+        return redirect('data_mitra')->with([
+            'flash_message' => 'Data Berhasil Di Update',
+            'flash_color' => 'info'
+        ]);
+    }    
 
     public function destroy($id)
     {

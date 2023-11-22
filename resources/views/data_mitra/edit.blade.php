@@ -7,16 +7,16 @@
         @method('POST') <!-- Anda perlu menambahkan metode PUT untuk pembaruan -->
         <div class="mb-3">
             <label for="mitra_pengirim">Nama Pegawai</label>
-            <input type="text" name="mitra_pengirim" id="mitra_pengirim" class="form-control" value="{{ $data_mitra->mitra_pengirim }}">
+            <input type="text" name="mitra_pengirim" id="mitra_pengirim" class="form-control" value="{{ $data_mitra->mitra_pengirim}}">
         </div>
         <div class="mb-3">
             <label for="type_barang">Type Barang</label>
             <select name="type_barang" id="type_barang" class="form-select">
                 <option selected>Open this select menu</option>
-                <option value="Basic" {{ $data_penerima->type_barang === 'Basic' ? 'selected' : '' }}>Basic</option>
-                <option value="Medium" {{ $data_penerima->type_barang === 'Medium' ? 'selected' : '' }}>Medium</option>
-                <option value="Premium" {{ $data_penerima->type_barang === 'Premium' ? 'selected' : '' }}>Premium</option>
-                <option value="Exclusive" {{ $data_penerima->type_barang === 'Exclusive' ? 'selected' : '' }}>Exclusive</option>
+                <option value="Basic" {{ $data_mitra->type_barang === 'Basic' ? 'selected' : '' }}>Basic</option>
+                <option value="Medium" {{ $data_mitra->type_barang === 'Medium' ? 'selected' : '' }}>Medium</option>
+                <option value="Premium" {{ $data_mitra->type_barang === 'Premium' ? 'selected' : '' }}>Premium</option>
+                <option value="Exclusive" {{ $data_mitra->type_barang === 'Exclusive' ? 'selected' : '' }}>Exclusive</option>
             </select>
         </div>
         <div class="form-group">

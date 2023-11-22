@@ -10,7 +10,7 @@
     </ul>
     @endif
    
-    <form method="POST" action="{{ route('data_penerima.store') }}">
+    <form method="POST" action="{{ route('data_penerimas.store') }}">
         @csrf
         <div class="mb-3">
             <label for="nama_pegawai">Nama Pegawai</label>

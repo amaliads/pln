@@ -1,24 +1,22 @@
 @extends('layouts.master')
 
 @section('title')
-@if(count($data_penerima))
-    <h1>DATA PENERIMA BARANG PEGAWAI</h1>
+    <h2>DATA PENERIMA BARANG PEGAWAI</h2>
     @include('partials/flash_message')
-    <div align="right">
-        <a href="{{ route('data_penerima.create') }}" class="btn btn-primary">Tambah Data Pegawai Penerima Barang</a>
-        <form action="{{ route('data_penerima.create') }}" method="get" class="form-inline">
+    <div style="display: flex; justify-content: space-between;">
+    <a href="{{ route('data_penerimas.create') }}" class="btn btn-primary">Tambah Data Pegawai Penerima Barang</a>
+    <a href="{{ route('data_penerimas.data_penerima_tabelpdf') }}" class="btn btn-dark">Print Data Pegawai Penerima Barang</a>
+</div>
+
+<br> </br>
+        <form action="{{ route('data_penerimas.search') }}" method="get" class="form-inline">
             @csrf
             <div class="input-group mb-2">
                 <input type="text" name="kata" class="form-control" placeholder="Cari...">
                 <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
-            </div>
-        </form>
     </div>
-@endsection
-
-@section('content')
-<div class="table-responsive">
-    <table class="table table-striped">
+<div class="card-datatable table-responsive pt-0">
+  <table class="datatables-basic table border-top">
         <thead>
             <tr>
                 <th>No</th>
@@ -37,7 +35,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data_penerima as $item)
+            @foreach ($data_penerimas as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->nama_pegawai }}</td>
@@ -51,24 +49,24 @@
                     <td>{{ $item->kelengkapan_barang }}</td>
                     <td>{{ $item->tanggal_penerimaan }}</td>
                     <td>
-                        <span class="badge {{ $item->status === 'update' ? 'bg-label-danger' : ($item->status === 'store' ? 'bg-label-danger' : 'bg-label-danger') }} me-1">{{ $item->status }}</span>
+                        <span class="badge rounded-pill {{ $item->status === 'update' ? 'bg-label-danger' : ($item->status === 'store' ? 'badge rounded-pill' : 'bg-label-danger') }} me-1">{{ $item->status }}</span>
                     </td>
                     <td>
                         <div class="btn-group">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('data_penerima.edit', $item->id) }}">
+                                <a class="dropdown-item" href="{{ route('data_penerimas.edit', $item->id) }}">
                                     <i class="bx bx-edit-alt me-1"></i>Edit
                                 </a>
-                                <form method="POST" action="{{ route('data_penerima.destroy', $item->id) }}" onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">
+                                <form method="POST" action="{{ route('data_penerimas.destroy', $item->id) }}" onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">
                                     @csrf
                                     @method('POST') <!-- Ubah method ke DELETE -->
                                     <button type="submit" class="dropdown-item">
                                         <i class="bx bx-trash me-1"></i>Delete
                                     </button>
                                 </form>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="bx bx-print me-1"></i>Print
+                                <a class="dropdown-item" href="{{ route('data_surat.index', ['id' => $item->id]) }}">
+                                <i class="bx bx-print me-1"></i>Print
                                 </a>
                             </div>
                         </div>
@@ -79,14 +77,11 @@
     </table>
 
     <div class="pull-left">
-        <p>{{ $data_penerima->links()}}</p>
+        <strong>
+            Jumlah Penerima: {{ $jumlah_penerima }}
+        </strong>
+     
+        <p>{{ $data_penerimas->links()}}</p>
     </div>
 </div>
-@else
-
-<div>
-    <h4>Data {{ $cari }} tidak ditemukan</h4>
-    <a href="/data_penerima">Kembali</a>
-</div>
-@endif
-@endsection
+@endsection   

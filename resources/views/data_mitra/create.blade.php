@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="mb-3">
-    <h4>Tambah Data Pegawai Penerima Barang</h4>
+    <h4>Tambah Data Barang</h4>
     @if ($errors->any())
     <ul class="alert alert-danger">
         @foreach ($errors->all() as $error)
@@ -11,8 +11,8 @@
     </ul>
     @endif
     
-    <form method="POST" action="{{ route('data_mitra.store') }}">
-    @method('POST')
+    <form method="post" action="{{ route('data_mitra.store') }}">
+    @method('post')
     @csrf
         <div class="mb-3">
             <label for="mitra_pengirim">Mitra Pengirim</label>

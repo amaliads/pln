@@ -36,22 +36,23 @@
             @foreach ($data_mitra as $mitra)
                 <tr>
                     <td>{{ $mitra->id }}</td>
-                    <td>{{ $mitra->nama_mitra }}</td>
+                    <td>{{ $mitra->mitra_pengirim }}</td>
                     <td>{{ $mitra->type_barang }}</td>
                     <td>{{ $mitra->jenis_barang }}</td>
                     <td>{{ $mitra->merk_barang }}</td>
                     <td>{{ $mitra->jumlah_barang }}</td>
                     <td>{{ $mitra->serial_number }}</td>
                     <td>{{ $mitra->kelengkapan_barang }}</td>
-                    <td>{{ $item->tanggal_penerimaan }}</td>
+                    <td>{{ $mitra->tanggal_penerimaan }}</td>
                     <td>{{ $mitra->yang_menerima }}</td>
+                    <td>
                         <div class="btn-group">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('data_penerima.edit', $item->id) }}">
+                                <a class="dropdown-item" href="{{ route('data_mitra.edit', $mitra->id) }}">
                                     <i class="bx bx-edit-alt me-1"></i>Edit
                                 </a>
-                                <form method="POST" action="{{ route('data_penerima.destroy', $item->id) }}" onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">
+                                <form method="POST" action="{{ route('data_mitra.destroy', $mitra->id) }}" onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">
                                     @csrf
                                     @method('POST') <!-- Ubah method ke DELETE -->
                                     <button type="submit" class="dropdown-item">

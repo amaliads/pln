@@ -1,22 +1,24 @@
 @extends('layouts.master')
 
 @section('title')
+@if(count($data_penerima))
     <h1>DATA PENERIMA BARANG PEGAWAI</h1>
     @include('partials/flash_message')
-    <div align="left">
-        <a href="{{ route('data_penerima.create') }}" class="btn btn-primary">Tambah Data Pegawai Penerima Barang</a>
-        <br></br>
-        <form action="{{ route('data_penerima.search') }}" method="get" class="form-inline">
+    <div align="right">
+        <a href="{{ route('data_penerimas.create') }}" class="btn btn-primary">Tambah Data Pegawai Penerima Barang</a>
+        <form action="{{ route('data_penerimas.create') }}" method="get" class="form-inline">
             @csrf
             <div class="input-group mb-2">
                 <input type="text" name="kata" class="form-control" placeholder="Cari...">
                 <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
+            </div>
+        </form>
     </div>
 @endsection
 
 @section('content')
-<div class="table-responsive">
-    <table class="table table-striped">
+<div class="card-datatable table-responsive pt-0">
+  <table class="datatables-basic table border-top">
         <thead>
             <tr>
                 <th>No</th>
@@ -49,7 +51,7 @@
                     <td>{{ $item->kelengkapan_barang }}</td>
                     <td>{{ $item->tanggal_penerimaan }}</td>
                     <td>
-                        <span class="badge rounded-pill {{ $item->status === 'update' ? 'bg-label-danger' : ($item->status === 'store' ? 'badge rounded-pill' : 'bg-label-danger') }} me-1">{{ $item->status }}</span>
+                        <span class="badge {{ $item->status === 'update' ? 'bg-label-danger' : ($item->status === 'store' ? 'bg-label-danger' : 'bg-label-danger') }} me-1">{{ $item->status }}</span>
                     </td>
                     <td>
                         <div class="btn-group">
@@ -65,8 +67,8 @@
                                         <i class="bx bx-trash me-1"></i>Delete
                                     </button>
                                 </form>
-                                <a class="dropdown-item" href="{{ route('data_penerima.data_penerima_pdf', ['id' => $item->id]) }}">
-                                <i class="bx bx-print me-1"></i>Print
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="bx bx-print me-1"></i>Print
                                 </a>
                             </div>
                         </div>
@@ -77,10 +79,14 @@
     </table>
 
     <div class="pull-left">
-        <strong>
-            Jumlah Penerima: {{ $jumlah_penerima }}
-        </strong>
-        <p>{{ $data_penerima->links()}}</p>
+        <p>{{ $data_penerimas->links()}}</p>
     </div>
 </div>
+@else
+
+<div>
+    <h4>Data {{ $cari }} tidak ditemukan</h4>
+    <a href="/data_penerima">Kembali</a>
+</div>
+@endif
 @endsection

@@ -2,7 +2,7 @@
 @section('content')
 <div class="mb-3">
     <h4>Edit Data Pegawai Pengembalian Barang</h4>
-    <form method="post" action="{{ route('data_pengembalian.update', $data_pengembalian->id) }}">
+    <form method="POST" action="{{ route('data_pengembalian.update', $data_pengembalian->id) }}">
         @csrf
         @method('POST') <!-- Anda perlu menambahkan metode PUT untuk pembaruan -->
         <div class="mb-3">

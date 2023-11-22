@@ -10,9 +10,7 @@
             <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
         </div>
     </form>
-@endsection
 
-@section('content')
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>

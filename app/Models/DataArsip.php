@@ -4,11 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Controllers\DataPenerimaController;
+use App\Http\Controllers\DataArsipController;
 
-class DataPenerima extends Model
+class DataArsip extends Model
 {
     use HasFactory;
-
-    protected $table = 'data_penerima';
+    protected $table = 'data_arsip';
 }

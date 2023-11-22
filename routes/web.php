@@ -1,9 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DataPenerimaController;
+use App\Http\Controllers\DataPenerimasController;
 use App\Http\Controllers\DataPengembalianController;
 use App\Http\Controllers\DataMitraController;
+use App\Http\Controllers\Upload;
+use App\Http\Controllers\PengembalianController;
+use App\Http\Controllers\DataArsipController;
+use App\Http\Controllers\DataSuratController;
 
 
 /*
@@ -16,32 +20,46 @@ use App\Http\Controllers\DataMitraController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('home.index');
 });
 
-Route::get('data_penerima', [DataPenerimaController::class, 'index']);
-Route::get('data_penerima/create', [DataPenerimaController::class, 'create'])->name('data_penerima.create');
-Route::post('data_penerima/store', [DataPenerimaController::class, 'store'])->name('data_penerima.store');
-Route::get('data_penerima/edit/{id}', [DataPenerimaController::class, 'edit'])->name('data_penerima.edit');
-Route::post('data_penerima/update/{id}', [DataPenerimaController::class, 'update'])->name('data_penerima.update');
-Route::post('data_penerima/delete/{id}', [DataPenerimaController::class, 'destroy'])->name('data_penerima.destroy');
-Route::get('data_penerima/search', [DataPenerimaController::class, 'search'])->name('data_penerima.search');
-Route::get('data_penerima/data_penerima_pdf/{id}', [DataPenerimaController::class, 'data_penerima_pdf'])->name('data_penerima.data_penerima_pdf');
+// Routes for Data Penerima
+Route::get('data_penerimas', [DataPenerimasController::class, 'index'])->name('data_penerimas.index');
+Route::get('data_penerimas/create', [DataPenerimasController::class, 'create'])->name('data_penerimas.create');
+Route::post('data_penerimas/store', [DataPenerimasController::class, 'store'])->name('data_penerimas.store');
+Route::get('data_penerimas/edit/{id}', [DataPenerimasController::class, 'edit'])->name('data_penerimas.edit');
+Route::post('data_penerimas/update/{id}', [DataPenerimasController::class, 'update'])->name('data_penerimas.update');
+Route::post('data_penerimas/delete/{id}', [DataPenerimasController::class, 'destroy'])->name('data_penerimas.destroy');
+Route::get('data_penerimas/search', [DataPenerimasController::class, 'search'])->name('data_penerimas.search');
+Route::get('data_surat/index/{id}', [DataSuratController::class, 'index'])->name('data_surat.index');
+Route::get('data_penerimas/data_penerimas_tabelpdf', [DataPenerimasController::class, 'data_penerima_tabelpdf'])->name('data_penerimas.data_penerima_tabelpdf');
 
-Route::get('data_pengembalian', 'App\Http\Controllers\DataPengembalianController@index')->name('data_pengembalian.index');
-Route::get('data_pengembalian/edit/{id}', 'App\Http\Controllers\DataPengembalianController@edit')->name('data_pengembalian.edit');
-Route::post('data_pengembalian/update/{id}', 'App\Http\Controllers\DataPengembalianController@update')->name('data_pengembalian.update');
-Route::post('data_pengembalian/delete/{id}', 'App\Http\Controllers\DataPengembalianController@destroy')->name('data_pengembalian.destroy');
-Route::get('data_pengembalian/search', 'App\Http\Controllers\DataPengembalianController@search')->name('data_pengembalian.search');
-Route::get('data_pengembalian/data_pengembalian_pdf/{id}', 'App\Http\Controllers\DataPengembalianController@data_pengembalian_pdf')->name('data_pengembalian.data_pengembalian_pdf');
+// Routes for Data Pengembalian
+Route::get('data_pengembalian', [DataPengembalianController::class, 'index'])->name('data_pengembalian.index');
+Route::get('data_pengembalian/edit/{id}', [DataPengembalianController::class, 'edit'])->name('data_pengembalian.edit');
+Route::post('data_pengembalian/update/{id}', [DataPengembalianController::class, 'update'])->name('data_pengembalian.update');
+Route::post('data_pengembalian/delete/{id}', [DataPengembalianController::class, 'destroy'])->name('data_pengembalian.destroy');
+Route::get('data_pengembalian/search', [DataPengembalianController::class, 'search'])->name('data_pengembalian.search');
+Route::get('data_pengembalian/data_pengembalian_pdf/{id}', [DataPengembalianController::class, 'data_pengembalian_pdf'])->name('data_pengembalian.data_pengembalian_pdf');
 
-Route::get('data_mitra', [DataMitraController::class, 'index']);
-Route::put('data_mitra/create', [DataMitraController::class, 'create'])->name('data_mitra.create');
+// Routes for Data Mitra
+Route::get('data_mitra', [DataMitraController::class, 'index'])->name('data_mitra.index');
+Route::get('data_mitra/create', [DataMitraController::class, 'create'])->name('data_mitra.create');
 Route::post('data_mitra/store', [DataMitraController::class, 'store'])->name('data_mitra.store');
 Route::get('data_mitra/edit/{id}', [DataMitraController::class, 'edit'])->name('data_mitra.edit');
 Route::post('data_mitra/update/{id}', [DataMitraController::class, 'update'])->name('data_mitra.update');
 Route::post('data_mitra/delete/{id}', [DataMitraController::class, 'destroy'])->name('data_mitra.destroy');
 Route::get('data_mitra/search', [DataMitraController::class, 'search'])->name('data_mitra.search');
 
+Route::get('data_arsip', [DataArsipController::class, 'index'])->name('data_arsip.index');
+Route::post('data_arsip/store', [DataArsipController::class, 'store'])->name('data_arsip.store');
+Route::get('data_arsip/create', [DataArsipController::class, 'create'])->name('data_arsip.create');
+Route::post('data_arsip/search', [DataArsipController::class, 'search'])->name('data_arsip.search');
+Route::get('data_arsip/edit/{id}', [DataArsipController::class, 'edit'])->name('data_arsip.edit');
+Route::post('data_arsip/update/{id}', [DataArsipController::class, 'update'])->name('data_arsip.update');
+Route::post('data_arsip/delete/{id}', [DataArsipController::class, 'destroy'])->name('data_arsip.destroy');
+
+
+
+Route::get('pengembalian/store', [PengembalianController::class, 'store'])->name('pengembalian.store');
