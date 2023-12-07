@@ -4,13 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Controllers\DataPenerimasController;
-use App\Http\Controllers\data_penerimas_tabelpdf;
 
 class DataPenerimas extends Model
 {
-        use HasFactory;
+    use HasFactory;
 
-        protected $table = 'data_penerimas';
-    
+    protected $table = 'data_penerimas';
+
+    public function data_pengembalian()
+    {
+        return $this->hasOne(DataPengembalian::class, 'data_penerimas_id');
+    }
+
+    //public function data_surat()
+    //{
+   //     return this->hasOne()
+   // }
 }

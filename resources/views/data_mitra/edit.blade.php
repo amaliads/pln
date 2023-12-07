@@ -4,7 +4,7 @@
     <h4>Edit Data Barang Dari Mitra</h4>
     <form method="post" action="{{ route('data_mitra.update', $data_mitra->id) }}">
         @csrf
-        @method('POST') <!-- Anda perlu menambahkan metode PUT untuk pembaruan -->
+        @method('post') <!-- Anda perlu menambahkan metode PUT untuk pembaruan -->
         <div class="mb-3">
             <label for="mitra_pengirim">Nama Pegawai</label>
             <input type="text" name="mitra_pengirim" id="mitra_pengirim" class="form-control" value="{{ $data_mitra->mitra_pengirim}}">
@@ -40,14 +40,58 @@
             <textarea name="kelengkapan_barang" id="kelengkapan_barang" class="form-control" rows="3">{{ $data_mitra->kelengkapan_barang }}</textarea>
         </div>
         <div class="form-group">
-            <label for="tanggal_penerimaan">Tanggal Penerimaan</label>
-            <input type="date" name="tanggal_penerimaan" id="tanggal_penerimaan" class="form-control" value="{{ $data_mitra->tanggal_penerimaan }}">
-        </div>
-        <div class="form-group">
             <label for="yang_Menerima">Yang Menerima</label>
             <input type="text" name="yang_menerima" id="yang_menerima" class="form-control" value="{{ $data_mitra->yang_menerima }}">
         </div>
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <div class="form-group">
+            <label for="tanggal_penerimaan">Tanggal Penerimaan</label>
+            <input type="date" name="tanggal_penerimaan" id="tanggal_penerimaan" class="form-control" value="{{ $data_mitra->tanggal_penerimaan }}">
+        </div>
+        <div class="mb-3">
+    <label for="tanggal_pengembalian" id="tanggal_pengembalian_label" style="display: none;">Tanggal Pengembalian</label>
+    <input type="date" name="tanggal_pengembalian" id="tanggal_pengembalian" class="form-control" style="display: none;">
+</div>
+
+<div class="form-group">
+    <p class="text-dark fw-medium d-block">Select Status Barang</p>
+    <div class="form-check form-check-primary mt-3">
+        <input name="status" class="form-check-input" type="radio" value="DITERIMA" id="status_diterima" checked />
+        <label class="form-check-label" for="status_diterima"> DITERIMA </label>
+    </div>
+    <div class="form-check form-check-secondary">
+        <input name="status" class="form-check-input" type="radio" value="DIKEMBALIKAN" id="status_dikembalikan" />
+        <label class="form-check-label" for="status_dikembalikan"> DIKEMBALIKAN</label>
+    </div>
+</div>
+
+<button type="submit" class="btn btn-primary" id="btnSimpan">Simpan</button>
+<button type="submit" class="btn btn-secondary" id="btnDikembalikan" style="display: none;">Dikembalikan</button>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#status_dikembalikan').click(function () {
+            $('#tanggal_pengembalian_label').show();
+            $('#tanggal_pengembalian').show();
+            $('#btnSimpan').hide();
+            $('#btnDikembalikan').show();
+        });
+
+        $('#status_diterima').click(function () {
+            $('#tanggal_pengembalian_label').hide();
+            $('#tanggal_pengembalian').hide();
+            $('#btnSimpan').show();
+            $('#btnDikembalikan').hide();
+        });
+
+        $('#btnDikembalikan').click(function () {
+            // Lakukan aksi pengembalian disini
+            // Misalnya, submit form ke endpoint pengembalian
+            // atau lakukan proses lain yang diperlukan
+            alert('Proses pengembalian dilakukan!');
+        });
+    });
+</script>
     </form>
 </div>
 @endsection

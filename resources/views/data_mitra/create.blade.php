@@ -55,6 +55,17 @@
             <label for="yang_menerima">Yang Menerima</label>
             <input type="text" name="yang_menerima" id="yang_menerima" class="form-control" value="{{ old('yang_menerima') }}">
         </div>
+        <div class="form-group">
+            <p class="text-dark fw-medium d-block">Select Status Barang</p>
+            <div class="form-check form-check-primary mt-3">
+                <input name="status" class="form-check-input" type="radio" value="DITERIMA" id="status_diterima" checked />
+                <label class="form-check-label" for="status_diterima"> DITERIMA </label>
+            </div>
+            <div class="form-check form-check-secondary">
+                <input name="status" class="form-check-input" type="radio" value="DIKEMBALIKAN" id="status_dikembalikan" />
+                <label class="form-check-label" for="status_dikembalikan"> DIKEMBALIKAN</label>
+            </div>
+        </div>
         <button type="submit" class="btn btn-primary">Simpan</button>
     </form>
 </div>

@@ -11,9 +11,10 @@ class DataPengembalianController extends Controller
 {
     public function index()
     {
-        $data_pengembalian = DataPengembalian::orderBy('id', 'asc')->paginate(5);
+        $data_pengembalian = DataPengembalian::orderBy('id', 'asc')->paginate(10);
         $jumlah_data = $data_pengembalian->count();
         $no = 0;
+
         return view('data_pengembalian.index', compact('data_pengembalian', 'no', 'jumlah_data'));
     }
 
@@ -65,15 +66,11 @@ class DataPengembalianController extends Controller
         return view('data_pengembalian.search', compact('data_pengembalian', 'cari', 'no'));
     }
 
-    public function data_pengembalian_pdf($id)
+    public function data_pengembalian_pdf()
     {
-        $data_pengembalian = DataPengembalian::find($id);
-
-        if (!$data_pengembalian) {
-            return redirect()->back()->with('error', 'Data tidak ditemukan.');
-        }
-
-        $pdf = PDF::loadView('data_pengembalian.data_pengembalian_pdf', ['data_pengembalian' => $data_pengembalian]);
-        return $pdf->download('laporan.pdf');
+        $data_pengembalian = DataPengembalian::all();
+        $pdf = PDF::loadView('data_pengembalian.data_pengembalian_pdf', ['data_pengembalian' => $data_pengembalian])
+            ->setPaper('A4', 'landscape');
+        return $pdf->stream('laporan.pdf');
     }
 }

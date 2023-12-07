@@ -83,6 +83,11 @@
           <div data-i18n="Basic">Info Akun</div>
         </a>
         <li class="menu-item">
+        <a href="kontakperson" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-folder"></i>
+          <div data-i18n="Basic"> Contact Person Admin</div>
+        </a>
+        <li class="menu-item">
         <a href="{{route('data_arsip.index')}}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-folder"></i>
           <div data-i18n="Basic"> Arsip Surat Berita Acara</div>
@@ -94,7 +99,7 @@
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
-            <a href="{{route('data_pengembalian.index')}}" class="menu-link">
+            <a href="{{route('data_mitrapengembalian.index')}}" class="menu-link">
               <div data-i18n="Basic">Pengembalian Barang Mitra</div>
             </a>
           </li>
@@ -146,10 +151,7 @@
           target="_blank"
           class="menu-link"
         >
-         
- 
 
-        >
       
         </a>
       </li>

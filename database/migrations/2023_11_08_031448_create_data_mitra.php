@@ -14,9 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('data_mitra', function (Blueprint $table) {
-            $table->id();
-
-            
+            $table->id();            
             $table->string('mitra_pengirim');
             $table->string('type_barang');
             $table->string('jenis_barang');
@@ -26,6 +24,7 @@ return new class extends Migration
             $table->string('kelengkapan_barang');
             $table->date('tanggal_penerimaan');
             $table->string('yang_menerima');
+            $table->string('status');
             $table->timestamps();
         });
     }

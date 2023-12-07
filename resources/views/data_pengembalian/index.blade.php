@@ -1,18 +1,26 @@
 @extends('layouts.master')
 
 @section('title')
-    <h1>DATA PENGEMBALIAN BARANG PEGAWAI</h1>
+<h2>DATA PENGEMBALIAN BARANG PEGAWAI</h2>
     @include('partials/flash_message')
-    <form action="{{ route('data_pengembalian.search') }}" method="get" class="form-inline">
+    <div style="display: flex; justify-content: space-between;">
+            <a href="{{ route('data_pengembalian.data_pengembalian_pdf') }}" class="btn btn-secondary">Print Data Pengembalian Barang Pegawai</a>
+        </div>
+    </div>
+    @include('partials.flash_message')
+    <form action="{{ route('data_pengembalian.search') }}" method="get" class="form-inline mt-3">
         @csrf
-        <div class="input-group mb-2">
+        <div class="input-group">
             <input type="text" name="kata" class="form-control" placeholder="Cari...">
             <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
         </div>
+        <br> </br>
     </form>
+@endsection
 
+@section('content')
 <div class="table-responsive">
-    <table class="table table-striped">
+  <table class="table table-bordered">
         <thead>
             <tr>
                 <th>No</th>
@@ -33,7 +41,7 @@
         <tbody>
             @foreach ($data_pengembalian as $barang)
                 <tr>
-                    <td>{{ $barang->id }}</td>
+                    <td>{{ $loop->index+1 }}</td>
                     <td>{{ $barang->nama_pegawai }}</td>
                     <td>{{ $barang->NIP }}</td>
                     <td>{{ $barang->jabatan }}</td>
@@ -43,7 +51,7 @@
                     <td>{{ $barang->jumlah_barang }}</td>
                     <td>{{ $barang->serial_number }}</td>
                     <td>{{ $barang->kelengkapan_barang }}</td>
-                    <td>{{ $barang->tanggal_pengembalian }}</td>
+                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $barang->tanggal_pengembalian)->format('d-m-Y') }}</td>
                     <td>
                         <span class="badge rounded-pill {{ $barang->status === 'update' ? 'bg-label-danger' : ($barang->status === 'store' ? 'badge rounded-pill' : 'bg-label-danger') }} me-1">{{ $barang->status }}</span>
                     </td>
@@ -56,7 +64,7 @@
                                 </a>
                                 <form method="POST" action="{{ route('data_pengembalian.destroy', $barang->id) }}" onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">
                                     @csrf
-                                    @method('DELETE') <!-- Mengubah method menjadi DELETE -->
+                                    @method('POST') <!-- Mengubah method menjadi DELETE -->
                                     <button type="submit" class="dropdown-item">
                                         <i class="bx bx-trash me-1"></i>Delete
                                     </button>

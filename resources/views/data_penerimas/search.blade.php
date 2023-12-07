@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
 @section('title')
-@if(count($data_penerima))
-    <h1>DATA PENERIMA BARANG PEGAWAI</h1>
+    <h2>DATA PENERIMA BARANG PEGAWAI</h2>
     @include('partials/flash_message')
-    <div align="right">
-        <a href="{{ route('data_penerimas.create') }}" class="btn btn-primary">Tambah Data Pegawai Penerima Barang</a>
-        <form action="{{ route('data_penerimas.create') }}" method="get" class="form-inline">
-            @csrf
+    <div style="display: flex; justify-content: space-between;">
+    <a href="{{ route('data_penerimas.create') }}" class="btn btn-primary">Tambah Data Pegawai Penerima Barang</a>
+    <a href="{{ route('data_penerimas.data_penerima_tabelpdf') }}" class="btn btn-dark">Print Data Pegawai Penerima Barang</a>
+</div>
+@csrf
             <div class="input-group mb-2">
                 <input type="text" name="kata" class="form-control" placeholder="Cari...">
                 <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
@@ -37,7 +37,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data_penerima as $item)
+            @foreach ($data_penerimas as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->nama_pegawai }}</td>
@@ -57,10 +57,10 @@
                         <div class="btn-group">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('data_penerima.edit', $item->id) }}">
+                                <a class="dropdown-item" href="{{ route('data_penerimas.edit', $item->id) }}">
                                     <i class="bx bx-edit-alt me-1"></i>Edit
                                 </a>
-                                <form method="POST" action="{{ route('data_penerima.destroy', $item->id) }}" onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">
+                                <form method="POST" action="{{ route('data_penerimas.destroy', $item->id) }}" onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">
                                     @csrf
                                     @method('POST') <!-- Ubah method ke DELETE -->
                                     <button type="submit" class="dropdown-item">
@@ -77,16 +77,15 @@
             @endforeach
         </tbody>
     </table>
-
-    <div class="pull-left">
-        <p>{{ $data_penerimas->links()}}</p>
+    @if ($data_penerimas->isEmpty())
+        <h4>Data {{ $cari }} tidak ditemukan</h4>
+        <a href="/data_penerimas">Kembali</a>
     </div>
-</div>
 @else
 
 <div>
     <h4>Data {{ $cari }} tidak ditemukan</h4>
-    <a href="/data_penerima">Kembali</a>
+    <a href="/data_penerimas">Kembali</a>
 </div>
 @endif
 @endsection

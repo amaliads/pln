@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('data_arsip', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal_surat');
+            $table->string('nomor_surat');
             $table->string('perihal_surat');
             $table->string('dari_surat');
             $table->string('file_surat');

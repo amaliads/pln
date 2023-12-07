@@ -1,38 +1,73 @@
 @extends('layouts.master')
 
 @section('title')
-    <h2>Selamat Datang di Sistem Inventaris</h2>
-@endsection
+<style>
+    .rounded-image {
+        width: 100%;
+        height: auto;
+        border-radius: 20px; /* You can adjust this value to control the roundness */
+        overflow: hidden;
+    }
+</style>
 
-@section('content')
-    <h6>Isi Konten</h6>
-    <div class="container">
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card bg-primary text-white">
-        <div class="card-body">
-          <h5 class="card-title">Card 1</h5>
-          <p class="card-text">Isi dari card pertama.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card bg-secondary text-white">
-        <div class="card-body">
-          <h5 class="card-title">Card 2</h5>
-          <p class="card-text">Isi dari card kedua.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card bg-info text-white">
-        <div class="card-body">
-          <h5 class="card-title">Card 3</h5>
-          <p class="card-text">Isi dari card ketiga.</p>
-        </div>
+<img src="{{ asset('template/assets/img/landingpage.png') }}" alt="landingpage" class="rounded-image">
+<br> 
+<br>
+<div class="row row-cols-1 row-cols-md-4 g-4">
+  <div class="col mb-3">
+    <div class="card h-100">
+      <img class="card-img-top" src="{{ asset('template/assets/img/datamitra.jpg')}}" alt="Card image cap" />
+      <div class="card-body">
+        <a href="{{ route('data_pengembalian.index') }}" class="card-link">
+          <h5 class="card-title">Data Barang Masuk Dari Mitra</h5>
+        </a>
       </div>
     </div>
   </div>
+  <div class="col mb-3">
+    <div class="card h-100">
+      <img class="card-img-top" src="{{ asset('template/assets/img/kembalimitra.jpg')}}" alt="Card image cap" />
+      <div class="card-body"> 
+        <a href="{{ route('data_arsip.index') }}" class="card-link">
+          <br>
+          <h5 class="card-title">Data Pengembalian Barang Ke-Mitra </h5>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col mb-3">
+    <div class="card h-100">
+      <img class="card-img-top" src="{{ asset('template/assets/img/terimapegawai.jpg')}}" alt="Card image cap" />
+      <div class="card-body">
+        <a href="{{ route('data_arsip.index') }}" class="card-link">
+          <h5 class="card-title">Data Pegawai Penerima Barang</h5>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col mb-3">
+    <div class="card h-100">
+      <img class="card-img-top" src="{{ asset('template/assets/img/kembalipegawai.jpg')}}" alt="Card image cap" />
+      <div class="card-body">
+        <a href="{{ route('data_arsip.index') }}" class="card-link">
+          <br>
+          <h5 class="card-title">Data Pengembalian Barang Pegawai</h5>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col mb-3">
+    <div class="card h-100">
+    <a href="{{ route('data_arsip.index') }}" class="card-link">
+      <img class="card-img-top" src="{{ asset('template/assets/img/suratBA.jpg')}}" alt="Card image cap" />
+      <div class="card-body text-center">
+          <h5 class="card-title fw-bold">Data Surat Berita Acara</h5>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Repeat the above structure for additional cards -->
 </div>
 
 @endsection

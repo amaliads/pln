@@ -1,11 +1,14 @@
 @extends('layouts.master')
 
 @section('title')
-    <h1>DATA PENERIMAAN BARANG MITRA</h1>
+    <h2>DATA BARANG DARI MITRA</h2>
     @include('partials/flash_message')
-    <div align="left">
-        <a href="{{ route('data_mitra.create') }}" class="btn btn-primary">Tambah Data Barang</a>
-        <br></br>
+    <div style="display: flex; justify-content: space-between;">
+    <a href="{{ route('data_mitra.create') }}" class="btn btn-primary">Tambah Data Barang</a>
+    <a href="{{ route('data_mitra_tabelpdf') }}" class="btn btn-dark">Print Data Daftar Barang Mitra</a>
+</div>
+
+<br> </br>
         <form action="{{ route('data_mitra.search') }}" method="get" class="form-inline">
             @csrf
             <div class="input-group mb-2">
@@ -29,6 +32,7 @@
                 <th>Kelengkapan Barang</th>
                 <th>Tanggal Penerimaan</th>
                 <th>Yang Menerima</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -43,10 +47,12 @@
                     <td>{{ $mitra->jumlah_barang }}</td>
                     <td>{{ $mitra->serial_number }}</td>
                     <td>{{ $mitra->kelengkapan_barang }}</td>
-                    <td>{{ $mitra->tanggal_penerimaan }}</td>
+                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $mitra->tanggal_penerimaan)->format('d-m-Y') }}</td>
                     <td>{{ $mitra->yang_menerima }}</td>
                     <td>
-                        <div class="btn-group">
+                    <span class="badge rounded-pill {{ $mitra->status === 'update' ? 'bg-label-primary' : ($mitra->status === 'store' ? 'badge rounded-pill' : 'bg-label-success') }} me-1">{{ $mitra->status }}</span>
+                    <td>
+                    <div class="btn-group">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{ route('data_mitra.edit', $mitra->id) }}">
@@ -59,6 +65,7 @@
                                         <i class="bx bx-trash me-1"></i>Delete
                                     </button>
                             </div>
+</td>
                         </div>
                     </td>
                 </tr>
@@ -70,7 +77,7 @@
         <strong>
             Jumlah : {{ $jumlah_data }}
         </strong>
-        <p>{{ $data_mitra->links()}}</p>
+        <p>{{ $data_mitra->links() }}</p>
     </div>
 </div>
 @endsection

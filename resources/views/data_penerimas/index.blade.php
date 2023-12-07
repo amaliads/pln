@@ -1,20 +1,18 @@
 @extends('layouts.master')
-
 @section('title')
     <h2>DATA PENERIMA BARANG PEGAWAI</h2>
     @include('partials/flash_message')
     <div style="display: flex; justify-content: space-between;">
     <a href="{{ route('data_penerimas.create') }}" class="btn btn-primary">Tambah Data Pegawai Penerima Barang</a>
     <a href="{{ route('data_penerimas.data_penerima_tabelpdf') }}" class="btn btn-dark">Print Data Pegawai Penerima Barang</a>
+@csrf
 </div>
-
-<br> </br>
-        <form action="{{ route('data_penerimas.search') }}" method="get" class="form-inline">
-            @csrf
-            <div class="input-group mb-2">
-                <input type="text" name="kata" class="form-control" placeholder="Cari...">
-                <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
-    </div>
+<div class="input-group mb-2">
+<input type="text" name="kata" class="form-control" placeholder="Cari...">
+<button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
+</div>
+            @endsection
+@section('content')
 <div class="card-datatable table-responsive pt-0">
   <table class="datatables-basic table border-top">
         <thead>
@@ -37,7 +35,7 @@
         <tbody>
             @foreach ($data_penerimas as $item)
                 <tr>
-                    <td>{{ $item->id }}</td>
+                    <td>{{ $loop->index+1 }}</td>
                     <td>{{ $item->nama_pegawai }}</td>
                     <td>{{ $item->NIP }}</td>
                     <td>{{ $item->jabatan }}</td>
@@ -47,9 +45,10 @@
                     <td>{{ $item->jumlah_barang }}</td>
                     <td>{{ $item->serial_number }}</td>
                     <td>{{ $item->kelengkapan_barang }}</td>
-                    <td>{{ $item->tanggal_penerimaan }}</td>
+                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $item->tanggal_penerimaan)->format('d-m-Y') }}</td>
                     <td>
-                        <span class="badge rounded-pill {{ $item->status === 'update' ? 'bg-label-danger' : ($item->status === 'store' ? 'badge rounded-pill' : 'bg-label-danger') }} me-1">{{ $item->status }}</span>
+                    <span class="badge rounded-pill {{ $item->status === 'update' ? 'bg-label-primary' : ($item->status === 'store' ? 'badge rounded-pill' : 'bg-label-success') }} me-1">{{ $item->status }}</span>
+
                     </td>
                     <td>
                         <div class="btn-group">
@@ -65,7 +64,7 @@
                                         <i class="bx bx-trash me-1"></i>Delete
                                     </button>
                                 </form>
-                                <a class="dropdown-item" href="{{ route('data_surat.index', ['id' => $item->id]) }}">
+                                <a class="dropdown-item" href="{{ route('data_penerimas.data_penerimas_pdf', ['id' => $item->id]) }}">
                                 <i class="bx bx-print me-1"></i>Print
                                 </a>
                             </div>
@@ -80,8 +79,7 @@
         <strong>
             Jumlah Penerima: {{ $jumlah_penerima }}
         </strong>
-     
-        <p>{{ $data_penerimas->links()}}</p>
+        <p>{{ $data_penerimas->links() }}</p>
     </div>
 </div>
 @endsection   

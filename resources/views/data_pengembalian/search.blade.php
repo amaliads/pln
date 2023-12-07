@@ -4,12 +4,13 @@
     <h1>DATA PENGEMBALIAN BARANG PEGAWAI</h1>
     @include('partials/flash_message')
     <div align="right">
-        <a href="{{ route('data_pengembalian.create') }}" class="btn rounded-pill me-2 btn-primary">Tambah Data Pegawai Pengembalian Barang</a>
-        <form action="{{ route('data_pengembalian.search') }}" method="get" class="form-inline">
-            @csrf
-            <div class="input-group mb-2">
-                <input type="text" name="kata" class="form-control" placeholder="Cari...">
-                <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
+    <form action="{{ route('data_pengembalian.search') }}" method="get" class="form-inline">
+    <div style="display: flex; justify-content: space-between;">
+    <a href="{{ route('data_pengembalian.data_pengembalian_pdf') }}" class="btn btn-light">Print Data Pengembalian Barang Pegawai</a>
+    @csrf
+        <div class="input-group mb-2">
+            <input type="text" name="kata" class="form-control" placeholder="Cari...">
+           <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
             </div>
         </form>
     </div>
@@ -78,7 +79,7 @@
     </table>
 
     <div class="pull-left">
-        <p>{{ $data_pengembalian->links()}}</p>
+    <p>{{ $data_pengembalian->links('pagination::bootstrap-4')->onEachSide(3) }}</p>
     </div>
 </div>
 @if (count($data_pengembalian) === 0)

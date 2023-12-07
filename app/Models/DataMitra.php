@@ -10,4 +10,8 @@ class DataMitra extends Model
     use HasFactory;
 
     protected $table = 'data_mitra';
+
+    public function data_mitrapengembalian(){
+    return $this->hasOne(DataMitraPengembalian::class, 'data_mitra_id');
+    }
 }

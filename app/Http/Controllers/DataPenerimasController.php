@@ -3,16 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use App\Models\DataPenerimas; // Sesuaikan dengan namespace dan nama model yang benar
+use App\Models\DataPengembalian;
 use Session;
 use PDF;
 class DataPenerimasController extends Controller
 {
     public function index(){
-        $data_penerimas = DataPenerimas::orderBy('id', 'asc')->paginate(5);
+        $data_penerimas = DataPenerimas::orderBy('id', 'asc')->paginate(10);
+       
+        Paginator::useBootstrap();
         $jumlah_penerima = $data_penerimas->count();        
-        $no = 0;
-        return view('data_penerimas.index', compact('data_penerimas' , 'no', 'jumlah_penerima'));
+        $no = 1;
+        foreach ($data_penerimas as $item) {
+        $item->id = $no;
+        $no++;
+    }
+    return view('data_penerimas.index', compact('data_penerimas', 'no', 'jumlah_penerima'));
 
     }
 
@@ -62,50 +70,75 @@ class DataPenerimasController extends Controller
         $data_penerimas->serial_number = $request->serial_number;
         $data_penerimas->kelengkapan_barang = $request->kelengkapan_barang;
         $data_penerimas->tanggal_penerimaan = $request->tanggal_penerimaan;
+        $data_penerimas->tanggal_pengembalian = $request->tanggal_pengembalian;
         $data_penerimas->status = $request->status;
-        if ($data_penerimas->isDirty('status') && $data_penerimas->status == 'dikembalikan') {
-            $pengembalianBarang = new PengembalianBarang;
-            $pengembalianBarang->DataPenerimas()->associate($data_penerimas);
-            $pengembalianBarang->save();
-        }
-        $data_penerimas->save(); // Ganti update() menjadi save()
-       
-        Session::flash('flash_type', 'update');
-        Session::flash('flash_message', 'Data Berhasil Di Update');
-        return redirect('data_penerimas')->with(['flash_message' => 'Data Berhasil Di Update', 'flash_color' => 'info']);
-        
+            // Jika status DIKEMBALIKAN, pindahkan data ke DataPengembalian
+            if ($request->status === 'DIKEMBALIKAN') {
+                $data_pengembalian = new DataPengembalian();
+                $data_pengembalian->nama_pegawai = $data_penerimas->nama_pegawai;
+                $data_pengembalian->NIP = $data_penerimas->NIP;
+                $data_pengembalian->jabatan = $data_penerimas->jabatan;
+                $data_pengembalian->type_barang = $data_penerimas->type_barang;
+                $data_pengembalian->jenis_barang = $data_penerimas->jenis_barang;
+                $data_pengembalian->merk_barang = $data_penerimas->merk_barang;
+                $data_pengembalian->jumlah_barang = $data_penerimas->jumlah_barang;
+                $data_pengembalian->serial_number = $data_penerimas->serial_number;
+                $data_pengembalian->kelengkapan_barang = $data_penerimas->kelengkapan_barang;
+                $data_pengembalian->tanggal_pengembalian = $data_penerimas->tanggal_pengembalian;
+                $data_pengembalian->status = $data_penerimas->status;
+            
+                $data_pengembalian->save();
+                
+                // Opsional: Hapus data dari DataPenerimas jika dibutuhkan
+                $data_penerimas->delete();
+            }
+            
+            // Redirect setelah operasi penyimpanan dilakukan
+            return redirect()->route('data_penerimas.index')->with('success', 'Status berhasil diperbarui!');
     }
-
     public function destroy($id){
         $data_penerimas = DataPenerimas::find($id);
         $data_penerimas->delete();
         return redirect('data_penerimas')->with(['flash_message' => 'Data Berhasil Dihapus', 'flash_color' => 'danger']);
     }
 
-    public function search(Request $request) {
-        $batas = 5;
-        $cari = $request->kata;
-    
-        $data_penerimas = DataPenerimas::where('nama_pegawai', 'like', '%'.$cari.'%')
-            ->orWhere('NIP', 'like', '%'.$cari.'%')
-            ->orWhere('jabatan', 'like', '%'.$cari.'%')
-            ->paginate($batas);
-    
-        $no = $batas * ($data_penerimas->currentPage() - 1);
-    
-        return view('data_penerimas.search', compact('data_penerimas', 'cari', 'no'));
+    public function search(Request $request)
+{
+    $searchQuery = $request->input('search');
+
+    if ($searchQuery) {
+        $data_penerimas = DataPenerimas::where('nama_pegawai', 'like', '%' . $searchQuery . '%')->paginate(10);
+    } else {
+        $data_penerimas = DataPenerimas::paginate(10);
     }
 
-    public function data_penerima_pdf($id) {
+    return view('data_penerimas.search', ['data_penerimas' => $data_penerimas, 'searchQuery' => $searchQuery]);
+}
+
+    public function data_penerimas_pdf($id) {
+        $data_penerimas = DataPenerimas::find($id);
+
+        if (!$data_penerimas) {
+            // Jika data tidak ditemukan, Anda dapat menangani kasus ini sesuai kebutuhan
+            return response()->json(['message' => 'Data Penerima tidak ditemukan'], 404);
+        }
+        $nama_pegawai = $data_penerimas->nama_pegawai; // Sesuaikan dengan field yang dimiliki oleh model 'DataPenerima'
+        $jabatan = $data_penerimas->jabatan; // Sesuaikan dengan field yang dimiliki oleh model 'DataPenerima'
+        $type_barang = $data_penerimas->type_barang; // Sesuaikan dengan field yang dimiliki oleh model 'DataPenerima'
+
+        $pdf = \PDF::loadView('data_penerimas.data_penerimas_pdf', compact('data_penerimas'))->setPaper('F4', 'potrait');;
+
+        return $pdf->stream($data_penerimas->surat_berita_acara . '.pdf');
+    }
+
+    public function showDataPenerimas($id) {
+        // Assuming DataPenerima is your model
         $data_penerimas = DataPenerimas::find($id);
     
-        if (!$data_penerimas) {
-            return redirect()->back()->with('error', 'Data tidak ditemukan.');
-        }
-    
-        $pdf = PDF::loadView('data_penerimas.data_penerima_pdf', ['data_penerimas' => $data_penerimas]);
-        return $pdf->download('SuratBeritaAcara.pdf');
+        // Assuming you have variables $hari, $tanggal, $bulan, $tahun
+        return view('data_penerimas.data_penerimas_pdf', compact('data_penerimas', 'hari', 'tanggal', 'bulan', 'tahun', 'jenis_barang','merk_barang', 'serial_number','kelengkapan_barang'));
     }
+
     public function data_penerima_tabelpdf() {
         $data_penerimas = DataPenerimas::all();
         $pdf = PDF::loadView('data_penerimas.data_penerima_tabelpdf', ['data_penerimas' => $data_penerimas])

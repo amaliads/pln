@@ -1,3 +1,5 @@
+use Carbon\Carbon;
+
 @extends('layouts.master')
 
 @section('title', 'DATA ARSIP SURAT BERITA ACARA')
@@ -26,6 +28,7 @@
                 <tr>
                     <th>No</th>
                     <th>Tanggal Surat</th>
+                    <th>Nomor Surat</th>
                     <th>Perihal Surat</th>
                     <th>Asal Surat</th>
                     <th>File Surat</th>
@@ -38,10 +41,17 @@
                 @foreach ($data_arsip as $surat)
                     <tr>
                         <td>{{ $surat->id }}</td>
-                        <td>{{ $surat->tanggal_surat }}</td>
+                        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $surat->tanggal_surat)->format('d-m-Y') }}</td>
+                        <td>{{ $surat->nomor_surat }} </td>
                         <td>{{ $surat->perihal_surat }}</td>
                         <td>{{ $surat->dari_surat }}</td>
-                        <td>{{ $surat->file_surat }}</td>
+                        <td>
+                            @if ($surat->file_surat)
+                            <a href="{{asset('storage/'.$surat->file_surat)}}" target="_blank">{{ $surat->file_surat }}</a>
+                            @else
+                                Tidak ada file
+                            @endif
+                        </td>
                         <td>{{ $surat->keterangan }}</td>
                         <td>{{ $surat->tujuan_ke }}</td>
                         <td>
@@ -56,7 +66,7 @@
                                     <form method="POST" action="{{ route('data_arsip.destroy', $surat->id) }}"
                                           onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">
                                         @csrf
-                                        @method('DELETE')
+                                        @method('POST')
                                         <button type="submit" class="dropdown-item">
                                             <i class="bx bx-trash me-1"></i>Delete
                                         </button>

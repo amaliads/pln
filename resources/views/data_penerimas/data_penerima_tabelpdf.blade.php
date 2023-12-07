@@ -12,7 +12,7 @@
 <body>
 <style type="text/css">
     table {
-        width: 100%; /* Ubah lebar tabel menjadi 100% */
+        width: 90%; /* Ubah lebar tabel menjadi 100% */
         margin-bottom: 0; /* Menghilangkan margin bawah */
         
     }
@@ -25,10 +25,10 @@
         padding: 0; /* Menghilangkan padding di dalam container */
     }
 </style>
-<div class="container">
-    <div class="row">
-        <div class="col">
+       <div class="row justify-content-center">
+        <div class="col text-center">
             <h5>Laporan Data Pegawai Penerima Barang</h5>
+            <br></br>
             <table class="table table-striped mt-2 float-start">
                 <thead>
                 <tr>

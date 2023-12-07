@@ -1,15 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-use App\Models\DataPenerima; // Diperbaiki: Menggunakan model 'DataPenerima'
+use App\Http\Controllers\DataPenerimas;
+use Illuminate\Http\Request; // Diperbaiki: Menggunakan model 'DataPenerima'
 
 class DataSuratController extends Controller
 {
     public function index($id)
     {
-        $data_penerimas = DataPenerima::find($id);
+        $data_penerimas = DataPenerimas::find($id);
 
         if (!$data_penerimas) {
             // Jika data tidak ditemukan, Anda dapat menangani kasus ini sesuai kebutuhan

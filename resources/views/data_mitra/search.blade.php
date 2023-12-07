@@ -68,7 +68,7 @@
     </table>
 
     <div class="pull-left">
-        <p>{{ $data_mitra->links()}}</p>
+    <p>{{ $data_mitra->links() }}</p>
     </div>
 </div>
 @else

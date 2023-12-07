@@ -23,6 +23,7 @@
         <tr>
                 <th>No</th>
                 <th>Tanggal Surat</th>
+                <th>Nomor Surat</th>
                 <th>Perihal Surat</th>
                 <th>Asal Surat</th>
                 <th>File Surat</th>
@@ -36,6 +37,7 @@
                 <tr>
                     <td>{{ $surat->id }}</td>
                     <td>{{ $surat->tanggal_surat }}</td>
+                    <td>{{ $surat->nomor_surat }}</td>
                     <td>{{ $surat->perihal_surat }}</td>
                     <td>{{ $surat->dari_surat }}</td>
                     <td>{{ $surat->file_surat }}</td>
