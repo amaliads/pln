@@ -8,66 +8,84 @@
         border-radius: 20px; /* You can adjust this value to control the roundness */
         overflow: hidden;
     }
-</style>
 
-<img src="{{ asset('template/assets/img/landingpage.png') }}" alt="landingpage" class="rounded-image">
+    .layout-without-navbar-light {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around; /* Adjust as needed */
+    }
+
+    .col {
+        width: calc(20% - 1rem); /* Adjust the width and margin between columns */
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .card {
+        width: 11rem; /* Set fixed width for the card */
+        height: 18rem; /* Set fixed height for the card */
+        margin-bottom: 0.5rem; /* Adjust the margin between cards */
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 11rem; /* Adjust the image height as needed */
+        object-fit: cover;
+    }
+    </style>
+
+<img src="{{ asset('template/assets/img/home.png') }}" alt="landingpage" class="rounded-image">
 <br> 
 <br>
-<div class="row row-cols-1 row-cols-md-4 g-4">
+<div class="layout-without-navbar-light"> <!-- Adjust the gap between cards (g-2) -->
   <div class="col mb-3">
-    <div class="card h-100">
+    <div class="card h-10">
       <img class="card-img-top" src="{{ asset('template/assets/img/datamitra.jpg')}}" alt="Card image cap" />
-      <div class="card-body">
+      <div class="card-body text-center">
         <a href="{{ route('data_pengembalian.index') }}" class="card-link">
-          <h5 class="card-title">Data Barang Masuk Dari Mitra</h5>
+          <h5 class="card-title fw-bold">Data Barang Masuk Dari Mitra</h5>
         </a>
       </div>
     </div>
   </div>
   <div class="col mb-3">
-    <div class="card h-100">
+    <div class="card h-10">
       <img class="card-img-top" src="{{ asset('template/assets/img/kembalimitra.jpg')}}" alt="Card image cap" />
-      <div class="card-body"> 
+      <div class="card-body text-center"> 
         <a href="{{ route('data_arsip.index') }}" class="card-link">
-          <br>
-          <h5 class="card-title">Data Pengembalian Barang Ke-Mitra </h5>
+          <h5 class="card-title fw-bold">Data Pengembalian Barang Ke-Mitra </h5>
         </a>
       </div>
     </div>
   </div>
   <div class="col mb-3">
-    <div class="card h-100">
+    <div class="card h-10">
       <img class="card-img-top" src="{{ asset('template/assets/img/terimapegawai.jpg')}}" alt="Card image cap" />
-      <div class="card-body">
+      <div class="card-body text-center">
         <a href="{{ route('data_arsip.index') }}" class="card-link">
-          <h5 class="card-title">Data Pegawai Penerima Barang</h5>
+          <h5 class="card-title fw-bold">Data Pegawai Penerima Barang</h5>
         </a>
       </div>
     </div>
   </div>
   <div class="col mb-3">
-    <div class="card h-100">
+    <div class="card h-10">
       <img class="card-img-top" src="{{ asset('template/assets/img/kembalipegawai.jpg')}}" alt="Card image cap" />
-      <div class="card-body">
+      <div class="card-body text-center">
         <a href="{{ route('data_arsip.index') }}" class="card-link">
-          <br>
-          <h5 class="card-title">Data Pengembalian Barang Pegawai</h5>
+          <h5 class="card-title fw-bold">Data Pengembalian Barang Pegawai</h5>
         </a>
       </div>
     </div>
   </div>
   <div class="col mb-3">
-    <div class="card h-100">
-    <a href="{{ route('data_arsip.index') }}" class="card-link">
+    <div class="card h-10">
       <img class="card-img-top" src="{{ asset('template/assets/img/suratBA.jpg')}}" alt="Card image cap" />
       <div class="card-body text-center">
-          <h5 class="card-title fw-bold">Data Surat Berita Acara</h5>
+      <a href="{{ route('data_arsip.index') }}" class="card-link">
+          <h5 class="card-title fw-bold">Data Arsip Surat Berita Acara</h5>
         </a>
       </div>
     </div>
-  </div>
-
-  <!-- Repeat the above structure for additional cards -->
-</div>
 
 @endsection

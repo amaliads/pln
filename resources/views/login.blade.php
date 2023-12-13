@@ -71,9 +71,23 @@
                             <div class="mb-3">
                                 <input type="password" name="password" class="form-control" placeholder="Password">
                             </div>
+                            <div class="mb-3">
+                            <div class="col-md-6 offset-md-4-left">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                    <label class="form-check-label" for="remember">
+                                        {{ __('Remember Me') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                             <div class="mb-3 d-grid">
                                 <button name="submit" type="submit" class="btn btn-primary">Login</button>
                             </div>
+                            <a class="btn btn-link" href="/forget-password">
+                                    Forgot Your Password?
+                                </a>
                         </form>
                     </div>
                 </div>

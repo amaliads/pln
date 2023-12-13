@@ -11,6 +11,10 @@ use App\Http\Controllers\DataArsipController;
 use App\Http\Controllers\DataSuratController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SesiController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Controller;
 
 
 /*
@@ -30,6 +34,10 @@ Route::get('/', function () {
 
 Route::get('/kontakperson', function () {
     return view('kontakperson');
+});
+
+Route::get('/auth.email_template', function () {
+    return view('auth.email_template');
 });
 
 // Routes for Data Penerima
@@ -93,9 +101,30 @@ Route::get('/home', function () {
     return redirect('/admin');
 });
 
+Route::get('login', function () {
+    return redirect('login');
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/adminn', [AdminController::class, 'adminn'])->middleware('userAkses:adminn');
     Route::get('/pengguna', [AdminController::class, 'pengguna'])->middleware('userAkses:pengguna');
     Route::get('/logout', [SesiController::class, 'logout']);
 });
+
+Route::get('data_register', [RegisterController::class, 'index']);
+Route::get('data_register/create', [RegisterController::class, 'create'])->name('data_register.create');
+Route::post('data_register/store', [RegisterController::class, 'store'])->name('data_register.store');
+Route::get('data_register/edit', [RegisterController::class, 'edit'])->name('data_register.edit');
+Route::post('data_register/update', [RegisterController::class, 'update'])->name('data_register.update');
+Route::get('/myprofil', function () {
+    return view('myprofil');
+});
+
+Route::get('register', [RegisterController::class, 'register']);
+Route::post('register', [RegisterController::class, 'store'])->name('register');
+Route::get('forget-password', [ForgotPasswordController::class, 'getEmail']);
+Route::post('forget-password', [ForgotPasswordController::class, 'postEmail']);
+
+Route::get('reset-password/{token}', [ResetPasswordController::class, 'getPassword']);
+Route::post('reset-password', [ResetPasswordController::class, 'updatePassword']);

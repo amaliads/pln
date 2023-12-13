@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UsersSeeder extends Seeder
 {
@@ -17,16 +18,22 @@ class UsersSeeder extends Seeder
     {
         $userData = [
             [
-                'name'=>'Matahari',
-                'email'=>'matahari@gmail.com',
+                'name'=>'Sari',
+                'email'=>'sari@gmail.com',
+                'nohp'=>'081234567832',
+                'alamat'=>'Jalan Sudirman, Semarang',
+                'jabatan'=>'Staff',
                 'role'=>'adminn',
-                'password'=>bcrypt('123456')
+                'password'=>Hash::make('123456'),
             ],
             [
-                'name'=>'Mawar',
-                'email'=>'mawar@gmail.com',
+                'name'=>'Nuca',
+                'email'=>'nuca@gmail.com',
+                'nohp'=>'081234567834',
+                'alamat'=>'Jalan Kartini, Semarang',
+                'jabatan'=>'Staff',
                 'role'=>'pengguna',
-                'password'=>bcrypt('123456')
+                'password'=>Hash::make('123456'),
             ],
         ];
 

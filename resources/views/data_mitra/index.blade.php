@@ -39,7 +39,7 @@
         <tbody>
             @foreach ($data_mitra as $mitra)
                 <tr>
-                    <td>{{ $mitra->id }}</td>
+                    <td>{{ $loop->index+1 }}</td>
                     <td>{{ $mitra->mitra_pengirim }}</td>
                     <td>{{ $mitra->type_barang }}</td>
                     <td>{{ $mitra->jenis_barang }}</td>
