@@ -34,7 +34,7 @@
     }
     </style>
 
-<img src="{{ asset('template/assets/img/home.png') }}" alt="landingpage" class="rounded-image">
+<img src="{{ asset('template/assets/img/banner.jpg') }}" alt="landingpage" class="rounded-image">
 <br> 
 <br>
 <div class="layout-without-navbar-light"> <!-- Adjust the gap between cards (g-2) -->

@@ -1,11 +1,17 @@
 @extends('layouts.master')
 
 @section('title')
-    <h2>DATA BARANG DARI MITRA</h2>
-    @include('partials/flash_message')
-    <div style="display: flex; justify-content: space-between;">
-    <a href="{{ route('data_mitra.create') }}" class="btn btn-primary">Tambah Data Barang</a>
-    <a href="{{ route('data_mitra_tabelpdf') }}" class="btn btn-dark">Print Data Daftar Barang Mitra</a>
+<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Penerimaan Barang Dari Mitra</span></h4>
+@endsection
+@section('content')
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title text-center" style="font-weight: bold; font-size: 24px;">DATA PENERIMAAN BARANG DARI MITRA</h2>
+        @include('partials.flash_message')
+        <br></br>
+        <div style="float: left;">
+    <a href="{{ route('data_mitra.create') }}" class="btn btn-primary">Tambah Data </a>
+    <a href="{{ route('data_mitra_tabelpdf') }}" class="btn btn-dark">Print List Data</a>
 </div>
 
 <br> </br>
@@ -15,11 +21,8 @@
                 <input type="text" name="kata" class="form-control" placeholder="Cari...">
                 <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
     </div>
-@endsection
-
-@section('content')
 <div class="table-responsive">
-    <table class="table table-striped">
+            <table class="table table-striped table-sm">
         <thead>
             <tr>
                 <th>No</th>

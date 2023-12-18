@@ -1,19 +1,18 @@
 @extends('layouts.master')
-
 @section('title')
-    <h1>INFO AKUN</h1>
-    @include('partials/flash_message')
-    <div align="left">
-        <a href="{{ route('data_register.create') }}" class="btn btn-primary">Tambah Akun</a>
-            @csrf
-    </div>
-    <br></br>
+<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Info Akun</span></h4>
 @endsection
-
-
 @section('content')
-<div class="table-responsive">
-    <table class="table table-striped">
+<div class="card">
+    <div class="card-body">
+    <h2 class="card-title" style="text-align: center; font-weight: bold; font-size: 24px;">INFO AKUN</h2>
+             @include('partials/flash_message')
+             <div align="right">
+                <a href="{{ route('data_register.create') }}" class="btn btn-primary">Registrasi Akun</a>
+            @csrf
+                </div>
+        <div class="table-responsive">
+        <table class="table table-striped">
         <thead>
             <tr>
                 <th>No</th>

@@ -36,6 +36,14 @@ Route::get('/kontakperson', function () {
     return view('kontakperson');
 });
 
+Route::get('/reg-admin', function () {
+    return view('reg-admin');
+});
+
+Route::get('/myprofil', function () {
+    return view('myprofil');
+});
+
 Route::get('/auth.email_template', function () {
     return view('auth.email_template');
 });

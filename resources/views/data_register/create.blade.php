@@ -1,5 +1,10 @@
 @extends('layouts.master')
+@section('title')
+<h4><a href="/adminn" style="color: black;">Home</a>/<span a href="/data_register.index" style="color: black;"style="font-weight: bold;">Info Akun</span>/<span style="font-weight: bold;">Registrasi Akun</span></h4>
+@endsection
 @section('content')
+<div class="card">
+<div class="card-body">
 <div class="container">
     <h4>Registrasi Akun</h4>
     @if (count($errors) > 0)

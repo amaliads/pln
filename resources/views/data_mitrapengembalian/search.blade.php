@@ -1,12 +1,17 @@
 @extends('layouts.master')
 
 @section('title')
-@if(count($data_mitrapengembalian))
-<h2>DATA PENGEMBALIAN BARANG DARI MITRA</h2>
-    @include('partials/flash_message')
-    <div style="display: flex; justify-content: space-between;">
-    <a href="{{ route('data_mitrapengembalian_tabel') }}" class="btn btn-dark">Print Data Daftar Barang Mitra</a>
-</div>
+<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Pengembalian Barang ke Mitra</span></h4>
+@endsection
+@section('content')
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title text-center" style="font-weight: bold; font-size: 24px;">DATA PENGEMBALIAN BARANG KE MITRA</h2>
+        @include('partials.flash_message')
+        @if(count($data_mitrapengembalian))
+        <div style="float: left;">
+            <a href="{{ route('data_mitrapengembalian_tabel') }}" class="btn btn-dark">Print List Data</a>
+        </div>
             @csrf
             <div class="input-group mb-2">
                 <input type="text" name="kata" class="form-control" placeholder="Cari...">
@@ -14,11 +19,9 @@
             </div>
         </form>
     </div>
-@endsection
 
-@section('content')
-<div class="table-responsive">
-    <table class="table table-striped">
+    <div class="table-responsive">
+            <table class="table table-striped table-sm">
         <thead>
             <tr>
                 <th>No</th>

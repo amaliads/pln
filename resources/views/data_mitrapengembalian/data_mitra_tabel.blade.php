@@ -58,6 +58,7 @@
                     <td>{{ $mitrakembali->serial_number }}</td>
                     <td>{{ $mitrakembali->kelengkapan_barang }}</td>
                     <td>{{ $mitrakembali->tanggal_pengembalian }}</td>
+                    <td>{{ $mitrakembali->yang_menerima }}</td>
                 </tr>
                 @endforeach
             </tbody>

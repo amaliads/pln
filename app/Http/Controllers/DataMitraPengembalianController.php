@@ -43,6 +43,7 @@ class DataMitraPengembalianController extends Controller
         $data_mitrapengembalian->serial_number = $request->serial_number;
         $data_mitrapengembalian->kelengkapan_barang = $request->kelengkapan_barang;
         $data_mitrapengembalian->tanggal_pengembalian = $request->tanggal_pengembalian;
+        $data_mitrapengembalian->yang_menerima = $request->yang_menerima;
         $data_mitra->status = $request->status;
         $data_mitra->save();
 

@@ -38,9 +38,9 @@ use Carbon\Carbon;
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data_arsip as $surat)
+                @foreach ($Data_arsip as $surat)
                     <tr>
-                        <td>{{ $loop->index+1 }}</td>
+                        <td>{{ $surat->id }}</td>
                         <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $surat->tanggal_surat)->format('d-m-Y') }}</td>
                         <td>{{ $surat->nomor_surat }} </td>
                         <td>{{ $surat->perihal_surat }}</td>

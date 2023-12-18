@@ -1,10 +1,11 @@
 @extends('layouts.master')
-
 @section('title')
-<h1>DATA INFORMASI CONTACT PERSON ADMIN</h1>
+<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Contact Person</span></h4>
 @endsection
-
 @section('content')
+<div class="card">
+    <div class="card-body">
+    <h4 class="card-title" style="color: black;" style="font-weight: bold;" style="text-align: left; font-weight: bold; font-size: 24px;">Contact Person</h4>
 <div class="table-responsive">
 <table class="table table-striped">
     <tbody>
@@ -13,7 +14,7 @@
             <td>Admin</td>
         </tr>
         <tr>
-            <td>Jabatan</td>
+            <td>Bidang</td>
             <td>Aset dan Properti Umum</td>
         </tr>
         <tr>

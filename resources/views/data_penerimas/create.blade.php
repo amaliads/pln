@@ -1,7 +1,11 @@
 @extends('layouts.master')
+@section('title')
+<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Penerima Pegawai</span>/<span style="font-weight: bold;">Tambah Edit Data</span></h4>
+@endsection
 @section('content')
-<div class="mb-3">
-    <h4>Tambah Data Pegawai Penerima Barang</h4>
+<div class="card">
+    <div class="card-body">
+    <h2 class="card-title text-center" style="font-weight: bold; font-size: 24px;">DATA PENERIMA BARANG PEGAWAI</h2>
     @if (count($errors) > 0)
     <ul class="alert alert-danger">
         @foreach ($errors->all() as $error)

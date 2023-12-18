@@ -1,12 +1,10 @@
-<aside id="layout-menu" class="layout-menu menu-vertikal menu bg-menu-theme">
+<aside id="layout-menu" class="layout-menu menu-vertikal menu bg-menu-theme" style="background-color: #5D7671;">
     <div class="app-brand demo">
       <a href="#" class="app-brand-link">
       <span>
-    <link rel="icon" type="image/x-icon" href="{{ asset('template/assets/img/favicon/PLN.ico') }}" />
+      <img src="{{ asset('template/assets/img/sida.jpg') }}" alt="Logo" style="height: 100px; width: 200px; object-fit: contain;">
+
 </span>
-<span class="app-brand-text demo menu-text fw-bolder ms-2" style="font-size: x-large;">SISTEM INVENTARIS</span>
-
-
       </a>
 
       <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -49,6 +47,7 @@
           <i class="menu-icon tf-icons bx bx-folder"></i>
           <div data-i18n="Basic"> Arsip Surat Berita Acara</div>
         </a>
+        @if(Auth::user()->role == 'adminn')
       <li class="menu-item">
         <a href="{{route('data_pengembalian.index')}}" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-dock-bottom"></i>
@@ -69,7 +68,7 @@
           </li>
         </ul>
       </li>
-     
+      @endif
       <!-- Components -->
 
       <!-- Cards -->

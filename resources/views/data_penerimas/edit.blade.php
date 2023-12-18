@@ -1,10 +1,15 @@
 @extends('layouts.master')
+@section('title')
+<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Penerima Pegawai</span>/<span style="font-weight: bold;">Tambah Edit Data</span></h4>
+@endsection
 @section('content')
-<div class="mb-3">
-    <h4>Edit Data Pegawai Penerima Barang</h4>
+<div class="card">
+    <div class="card-body">
+    <h2 class="card-title text-center" style="font-weight: bold; font-size: 24px;">EDIT DATA PENERIMA BARANG PEGAWAI</h2>
     <form method="post" action="{{ route('data_penerimas.update', $data_penerimas->id) }}">
         @csrf
         @method('post') <!-- Anda perlu menambahkan metode PUT untuk pembaruan -->
+        <form method="post" action="{{ route('data_penerimas.update', $data_penerimas->id) }}">
         <div class="mb-3">
             <label for="nama_pegawai">Nama Pegawai</label>
             <input type="text" name="nama_pegawai" id="nama_pegawai" class="form-control" value="{{ $data_penerimas->nama_pegawai }}">

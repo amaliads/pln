@@ -75,7 +75,7 @@
 }
 .bg-glass {
       background-color: hsla(0, 0%, 100%, 0.9) !important;
-      backdrop-filter: saturate(200%) blur(25px);
+      backdrop-filter: saturate(200%) blur(50px);
     }
     .login-title {
     text-align: center;
@@ -86,47 +86,41 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container py-5">
+<div class="container py-5">
         <div class="row justify-content-end">
-            <div class="col-md-4">
-                <div class="card bg-glass">
-                <div class="card-body px-4 py-5 px-md-5">
-                <h2 class="fw-bold mb-2 text-uppercase login-title" style="font-size: 24px;">WELCOME SIDABAR</h2>
-                <h2 class="fw-bold mb-2 text-uppercase login-title" style="font-size: 20px;">LOGIN</h2>
-
-                        @if($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach($errors->all() as $item)
-                                        <li>{{ $item }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <form action="" method="POST">
-                            @csrf
-                            <div class="mb-3">
-                <input type="email" value="{{ old('email')}}" name="email" class="form-control" placeholder="Email">
-                            </div>
-                            <div class="mb-3">
-                                <input type="password" name="password" class="form-control" placeholder="Password">
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="mb-3 d-grid">
-                                <button name="submit" type="submit" class="btn btn-primary">Login</button>
-                            </div>
-                            <p class="mb-3"><a class="text-primary" href="/forget-password">Forgot password?</a></p>
-                            <p class="mb-2">Don't have an account? <a href="/reg-admin" class="link-info">Register here</a></p>
-
+            <div class="col-md-6"> <!-- Ubah ukuran kolom agar sesuai dengan konten -->
+                <div class="card bg-glass custom-card"> <!-- Tambahkan class custom-card -->
+                    <div class="card-body px-4 py-5 px-md-5">
+                        <h2 class="fw-bold mb-4 text-center text-uppercase login-title">INFO</h2>
+                        <div class="container">
+                        <div class="row">
+                                <div class="col">
+                                    <h5 class="fw text-uppercase mb-2">Apabila akan registrasi akun silahkan hubungi contact person dibawah ini :</h5>
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td>Nama</td>
+                                                <td>Admin</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Bidang</td>
+                                                <td>Aset dan Properti Umum</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email</td>
+                                                <td><a href="mailto:bidangumumdanaset@gmail.com">bidangumumdanaset@gmail.com</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>WhatsApp</td>
+                                                <td><a href="https://wa.me/+6282326763615">+6282326763615</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                         </div>
-                        </form>
+                        <!-- Tambahkan tombol back ke halaman login -->
+                        <div class="text-center mt-4">
+                            <a href="/" class="btn btn-primary">Back to Login</a>
+                        </div>
                     </div>
                 </div>
             </div>

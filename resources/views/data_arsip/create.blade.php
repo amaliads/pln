@@ -1,65 +1,88 @@
+use Carbon\Carbon;
 @extends('layouts.master')
 
+@section('title')
+    <h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Arsip BA</span></h4>
+@endsection
+
 @section('content')
-    <div class="mb-3">
-        <h4>Tambah Arsip Surat Berita Acara</h4>
-        @if ($errors->any())
-            <ul class="alert alert-danger">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        @endif
-        <form method="POST" action="{{ route('data_arsip.store') }}" enctype="multipart/form-data">
-            @csrf <!-- Memastikan adanya token CSRF -->
-
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header">Arsip Surat Berita Acara</div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="tanggal_surat">Tanggal Surat</label>
-                                    <input id="tanggal_surat" type="date" class="form-control" name="tanggal_surat" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="nomor_surat">Nomor Surat</label>
-                                    <input id="nomor_surat" type="text" class="form-control" name="nomor_surat" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="perihal_surat">Perihal Surat</label>
-                                    <input id="perihal_surat" type="text" class="form-control" name="perihal_surat" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="dari_surat">Dari Surat</label>
-                                    <input id="dari_surat" type="text" class="form-control" name="dari_surat" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="file_surat">Berkas Surat</label>
-                                    <input id="file_surat" type="file" class="form-control" name="file_surat" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="keterangan">Keterangan</label>
-                                    <textarea id="keterangan" class="form-control" name="keterangan" rows="3"></textarea>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="tujuan_ke">Tujuan Surat</label>
-                                    <input id="tujuan_ke" type="text" class="form-control" name="tujuan_ke" required>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary">Unggah Surat</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title text-center" style="font-weight: bold; font-size: 24px;">DATA ARSIP SURAT BERITA ACARA</h2>
+            <div style="display: flex; justify-content: space-between;">
+                <a href="{{ route('data_arsip.create') }}" class="btn btn-primary">Tambah Arsip</a>
             </div>
-        </form> <!-- Tutup form tag yang telah digunakan untuk mengunggah surat -->
+            <form action="{{ route('data_arsip.search') }}" method="get" class="form-inline mb-2">
+                @csrf
+                <div class="input-group">
+                    <input type="text" name="kata" class="form-control" placeholder="Cari...">
+                    <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
+                </div>
+                @if ($errors->any())
+    <ul class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+    @endif
+    <form method="post" action="{{ route('data_arsip.store') }}">
+    @method('post')
+    @csrf
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Tanggal Surat</th>
+                            <th>Nomor Surat</th>
+                            <th>Perihal Surat</th>
+                            <th>Asal Surat</th>
+                            <th>File Surat</th>
+                            <th>Keterangan</th>
+                            <th>Tujuan Surat</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data_arsip as $surat)
+                            <tr>
+                                <td>{{ $loop->index + 1 }}</td>
+                                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $surat->tanggal_surat)->format('d-m-Y') }}</td>
+                                <td>{{ $surat->nomor_surat }}</td>
+                                <td>{{ $surat->perihal_surat }}</td>
+                                <td>{{ $surat->dari_surat }}</td>
+                                <td>
+                                    @if ($surat->file_surat)
+                                        <a href="{{ asset('storage/' . $surat->file_surat) }}" target="_blank">{{ $surat->file_surat }}</a>
+                                    @else
+                                        Tidak ada file
+                                    @endif
+                                </td>
+                                <td>{{ $surat->keterangan }}</td>
+                                <td>{{ $surat->tujuan_ke }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="{{ route('data_arsip.edit', $surat->id) }}">
+                                                <i class="bx bx-edit-alt me-1"></i>Edit
+                                            </a>
+                                            <form method="POST" action="{{ route('data_arsip.destroy', $surat->id) }}"
+                                                onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="dropdown-item">
+                                                    <i class="bx bx-trash me-1"></i>Delete
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 @endsection

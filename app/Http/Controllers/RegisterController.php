@@ -70,5 +70,9 @@ class RegisterController extends Controller
     
         // Simpan perubahan
         $data_register->save();
+    
+        // Memberikan pesan session "Password berhasil diperbarui"
+        return redirect('/myprofil')->with('success', 'Password berhasil diperbarui.');
+
     }
 }

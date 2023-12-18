@@ -1,5 +1,11 @@
 @extends('layouts.master')
+
+@section('title')
+<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Penerimaan Barang Dari Mitra</span>/<span style="font-weight: bold;">Edit Data</span></h4>
+@endsection
 @section('content')
+<div class="card">
+<div class="card-body">
 <div class="mb-3">
     <h4>Edit Data Barang Dari Mitra</h4>
     <form method="post" action="{{ route('data_mitra.update', $data_mitra->id) }}">

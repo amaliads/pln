@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <!-- =========================================================
 * Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
 ==============================================================
@@ -22,7 +21,7 @@
 >
 @include('partials.head')
 
-  <body>
+  <body style="background-color: #F5F5F5;"> <!-- Tambahkan properti background-color di sini -->
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">

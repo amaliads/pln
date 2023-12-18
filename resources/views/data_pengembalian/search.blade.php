@@ -14,9 +14,6 @@
             </div>
         </form>
     </div>
-@endsection
-
-@section('content')
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>

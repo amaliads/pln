@@ -1,7 +1,12 @@
 @extends('layouts.master')
+@section('title')
+<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Pengembalian Ke Mitra</span>/<span style="font-weight: bold;">Edit Data</span></h4>
+@endsection
 @section('content')
-<div class="mb-3">
-    <h4>Edit Data Pengembalian Barang Dari Mitra</h4>
+<div class="card">
+    <div class="card-body">
+    <h2 class="card-title text-center" style="font-weight: bold; font-size: 24px;">EDIT DATA PENERIMA BARANG PEGAWAI</h2>
+    <br></br>
     <form method="post" action="{{ route('data_mitrapengembalian.update', $data_mitrapengembalian->id) }}">
         @csrf
         @method('post') <!-- Anda perlu menambahkan metode PUT untuk pembaruan -->

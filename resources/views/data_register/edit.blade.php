@@ -1,5 +1,6 @@
 @extends('layouts.master')
-
+@section('title')
+<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Change Password</span></h4>
 @section('content')
 <div class="card">
     <div class="card-body">
@@ -11,7 +12,7 @@
             @if($data_register->count() > 0)
                 <div class="mb-3">
                     <label for="email">Alamat E-mail</label>
-                    <input type="text" name="email" id="email" class="form-control" value="{{ $data_register->email}}">
+                    <input type="text" name="email" id="email" class="form-control" value="{{Auth::user()->email}}">
                 </div>
             @else
                 <p>Data tidak ditemukan.</p>
@@ -25,6 +26,7 @@
                 <label for="password_confirmation">Konfirmasi Password</label>
                 <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
             </div>
+            <br></br>
             <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
     </div>

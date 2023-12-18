@@ -1,24 +1,25 @@
 @extends('layouts.master')
-
 @section('title')
-    <h2>DATA PENERIMA BARANG PEGAWAI</h2>
-    @include('partials/flash_message')
-    <div style="display: flex; justify-content: space-between;">
-    <a href="{{ route('data_penerimas.create') }}" class="btn btn-primary">Tambah Data Pegawai Penerima Barang</a>
-    <a href="{{ route('data_penerimas.data_penerima_tabelpdf') }}" class="btn btn-dark">Print Data Pegawai Penerima Barang</a>
-</div>
-@csrf
-            <div class="input-group mb-2">
-                <input type="text" name="kata" class="form-control" placeholder="Cari...">
-                <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
-            </div>
-        </form>
-    </div>
+<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Penerima Barang Pegawai</span></h4>
 @endsection
-
 @section('content')
-<div class="card-datatable table-responsive pt-0">
-  <table class="datatables-basic table border-top">
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title text-center" style="font-weight: bold; font-size: 24px;">DATA PENERIMA BARANG PEGAWAI</h2>
+        @include('partials.flash_message')
+        <div style="float: left;">
+            <a href="{{ route('data_penerimas.create') }}" class="btn btn-primary">Tambah Data</a>
+            <a href="{{ route('data_penerimas.data_penerima_tabelpdf') }}" class="btn btn-dark">Print List Data</a>
+            @csrf
+        </div>
+        <br></br>
+        <div class="input-group mb-2" style="clear: both;">
+            <input type="text" name="kata" class="form-control" placeholder="Cari..." style="margin-right: 10px;">
+            <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
         <thead>
             <tr>
                 <th>No</th>
