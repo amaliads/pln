@@ -20,7 +20,7 @@
 
             <div class="form-group">
                 <label for="new_password">Password Baru</label>
-                <input type="password" name="new_password" id="new_password" class="form-control">
+                <input type="password" name="password" id="new_password" class="form-control">
             </div>
             <div class="form-group">
                 <label for="password_confirmation">Konfirmasi Password</label>

@@ -37,6 +37,9 @@
           @include('partials.nav')
 
           <!-- / Navbar -->
+          <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+          <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+ 
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
@@ -69,5 +72,9 @@
     @include('partials.scripts')
 
     <script src="{{ asset('js/data_penerimaan.js')}}"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+ 
+      @yield('script')
   </body>
 </html>

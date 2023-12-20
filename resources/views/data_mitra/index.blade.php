@@ -1,17 +1,21 @@
 @extends('layouts.master')
 
 @section('title')
-<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Penerimaan Barang Dari Mitra</span></h4>
+<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Penerima Barang Dari Mitra</span></h4>
 @endsection
 @section('content')
 <div class="card">
     <div class="card-body">
-        <h2 class="card-title text-center" style="font-weight: bold; font-size: 24px;">DATA PENERIMAAN BARANG DARI MITRA</h2>
+        <h2 class="card-title text-center" style="font-weight: bold; font-size: 24px;">DATA PENERIMA BARANG DARI MITRA</h2>
         @include('partials.flash_message')
         <br></br>
         <div style="float: left;">
-    <a href="{{ route('data_mitra.create') }}" class="btn btn-primary">Tambah Data </a>
-    <a href="{{ route('data_mitra_tabelpdf') }}" class="btn btn-dark">Print List Data</a>
+    <a href="{{ route('data_mitra.create') }}" class="btn btn-primary me-2">
+            <span class="tf-icons bx bx-plus me-1"></span> Tambah Data
+    <a href="{{ route('data_mitra_tabelpdf') }}" class="btn btn-dark me-2">
+            <span class="bx bx-printer me-1"></span> Print Data
+            </a>
+
 </div>
 
 <br> </br>
@@ -22,21 +26,21 @@
                 <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
     </div>
 <div class="table-responsive">
-            <table class="table table-striped table-sm">
+<table id="myTable" class="stripe row-border order-column" style="width:10%">
         <thead>
             <tr>
-                <th>No</th>
-                <th>Nama Mitra</th>
-                <th>Type Barang</th>
-                <th>Jenis Barang</th>
-                <th>Merk Barang</th>
-                <th>Jumlah Barang</th>
-                <th>Serial Number</th>
-                <th>Kelengkapan Barang</th>
-                <th>Tanggal Penerimaan</th>
-                <th>Yang Menerima</th>
-                <th>Status</th>
-                <th>Action</th>
+            <th style="text-align: center;">No</th>
+            <th style="text-align: center;">Nama Mitra</th>
+            <th style="text-align: center;">Type <br> Barang</th>
+            <th style="text-align: center;">Jenis <br> Barang</th>
+            <th style="text-align: center;">Merk <br> Barang</th>
+            <th style="text-align: center;">Jumlah <br> Barang</th>
+            <th style="text-align: center;">Serial <br> Number</th>
+            <th style="text-align: center;">Kelengkapan <br> Barang</th>
+            <th style="text-align: center;">Tanggal <br> Penerimaan</th>
+            <th style="text-align: center;">Yang <br> Menerima</th>
+            <th style="text-align: center;">Status</th>
+            <th style="text-align: center;">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -75,12 +79,13 @@
             @endforeach
         </tbody>
     </table>
-
-    <div class="pull-left">
-        <strong>
-            Jumlah : {{ $jumlah_data }}
-        </strong>
-        <p>{{ $data_mitra->links() }}</p>
-    </div>
-</div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            responsive: true
+        });
+    });
+</script>
 @endsection

@@ -122,6 +122,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('data_register', [RegisterController::class, 'index']);
 Route::get('data_register/create', [RegisterController::class, 'create'])->name('data_register.create');
+Route::get('data_register/add', [RegisterController::class, 'add'])->name('data_register.add');
 Route::post('data_register/store', [RegisterController::class, 'store'])->name('data_register.store');
 Route::get('data_register/edit', [RegisterController::class, 'edit'])->name('data_register.edit');
 Route::post('data_register/update', [RegisterController::class, 'update'])->name('data_register.update');

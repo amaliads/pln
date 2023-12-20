@@ -8,21 +8,17 @@ use App\Models\DataPenerimas; // Sesuaikan dengan namespace dan nama model yang 
 use App\Models\DataPengembalian;
 use Session;
 use PDF;
+use DataTables;
 class DataPenerimasController extends Controller
 {
-    public function index(){
-        $data_penerimas = DataPenerimas::orderBy('id', 'asc')->paginate(10);
-       
-        Paginator::useBootstrap();
-        $jumlah_penerima = $data_penerimas->count();        
-        $no = 1;
-        foreach ($data_penerimas as $item) {
-        $item->id = $no;
-        $no++;
-    }
-    return view('data_penerimas.index', compact('data_penerimas', 'no', 'jumlah_penerima'));
+    public function index()
+{
+    $data_penerimas = DataPenerimas::orderBy('id', 'asc')->get();
+    $jumlah_penerima = $data_penerimas->count();
+    $no = 0;
 
-    }
+    return view('data_penerimas.index', compact('data_penerimas', 'no', 'jumlah_penerima'));
+}
 
     public function create(){
         return view('data_penerimas.create');
@@ -102,18 +98,6 @@ class DataPenerimasController extends Controller
         return redirect('data_penerimas')->with(['flash_message' => 'Data Berhasil Dihapus', 'flash_color' => 'danger']);
     }
 
-    public function search(Request $request)
-{
-    $searchQuery = $request->input('search');
-
-    if ($searchQuery) {
-        $data_penerimas = DataPenerimas::where('nama_pegawai', 'like', '%' . $searchQuery . '%')->paginate(10);
-    } else {
-        $data_penerimas = DataPenerimas::paginate(10);
-    }
-
-    return view('data_penerimas.search', ['data_penerimas' => $data_penerimas, 'searchQuery' => $searchQuery]);
-}
 
     public function data_penerimas_pdf($id) {
         $data_penerimas = DataPenerimas::find($id);

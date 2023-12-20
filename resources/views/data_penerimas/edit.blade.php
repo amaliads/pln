@@ -6,10 +6,9 @@
 <div class="card">
     <div class="card-body">
     <h2 class="card-title text-center" style="font-weight: bold; font-size: 24px;">EDIT DATA PENERIMA BARANG PEGAWAI</h2>
-    <form method="post" action="{{ route('data_penerimas.update', $data_penerimas->id) }}">
+        <form method="post" action="{{ route('data_penerimas.update', $data_penerimas->id) }}">
         @csrf
         @method('post') <!-- Anda perlu menambahkan metode PUT untuk pembaruan -->
-        <form method="post" action="{{ route('data_penerimas.update', $data_penerimas->id) }}">
         <div class="mb-3">
             <label for="nama_pegawai">Nama Pegawai</label>
             <input type="text" name="nama_pegawai" id="nama_pegawai" class="form-control" value="{{ $data_penerimas->nama_pegawai }}">

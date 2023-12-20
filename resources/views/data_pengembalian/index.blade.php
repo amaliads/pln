@@ -10,35 +10,31 @@ use Carbon;
         @include('partials.flash_message')
         <br></br>
         <div style="float: left;">
-            <a href="{{ route('data_pengembalian.data_pengembalian_pdf') }}" class="btn btn-dark">Print List Data</a>
+            <a href="{{ route('data_pengembalian.data_pengembalian_pdf') }}" class="btn btn-dark me-2">
+            <span class="bx bx-printer me-1"></span> Print Data
+            </a>
             @csrf
         </div>
         <br></br>
-        <form action="{{ route('data_pengembalian.search') }}" method="get" class="form-inline mt-3">
-        <div class="input-group mb-2" style="clear: both;">
-            <input type="text" name="kata" class="form-control" placeholder="Cari..." style="margin-right: 10px;">
-            <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
-        </div>
-            <div></div>
             <div class="card">
     <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-sm">
+            <table id="myTable" class="stripe row-border order-column" style="width:10%">
                     <thead>
                         <tr>
-                        <th>No</th>
-                        <th>Nama Pegawai</th>
-                        <th>NIP</th>
-                        <th>Jabatan</th>
-                        <th>Type Barang</th>
-                        <th>Jenis Barang</th>
-                        <th>Merk Barang</th>
-                        <th>Jumlah Barang</th>
-                        <th>Serial Number</th>
-                        <th>Kelengkapan Barang</th>
-                        <th>Tanggal Pengembalian</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th style="text-align: center;">No</th>
+            <th style="text-align: center;">Nama Pegawai</th>
+            <th style="text-align: center;">NIP</th>
+            <th style="text-align: center;">Jabatan</th>
+            <th style="text-align: center;">Type <br> Barang</th>
+            <th style="text-align: center;">Jenis <br> Barang</th>
+            <th style="text-align: center;">Merk <br> Barang</th>
+            <th style="text-align: center;">Jumlah</th>
+            <th style="text-align: center;">Serial <br> Number</th>
+            <th style="text-align: center;">Kelengkapan <br> Barang</th>
+            <th style="text-align: center;">Tanggal <br> Penerimaan</th>
+            <th style="text-align: center;">Status</th>
+            <th style="text-align: center;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,10 +69,6 @@ use Carbon;
                                             <button type="submit" class="dropdown-item">
                                                 <i class="bx bx-trash me-1"></i>Delete
                                             </button>
-                                        </form>
-                                        <a class="dropdown-item" href="{{ route('data_pengembalian.data_pengembalian_pdf', ['id' => $barang->id]) }}">
-                                            <i class="bx bx-print me-1"></i>Print
-                                        </a>
                                     </div>
                                 </div>
                             </td>
@@ -88,10 +80,16 @@ use Carbon;
 
         <div class="pull-left">
             <strong>
-                Jumlah Pengembalian: {{ $jumlah_data }}
+                Jumlah Pengembalian : {{ $jumlah_data }}
             </strong>
-            <p>{{ $data_pengembalian->links() }}</p>
-        </div>
-    </div>
 </div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            responsive: true
+        });
+    });
+    </script>
 @endsection

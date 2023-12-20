@@ -1,44 +1,38 @@
-use Carbon\Carbon;
-
 @extends('layouts.master')
 
-@section('title', 'DATA ARSIP SURAT BERITA ACARA')
-
+@section('title')
+<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Arsip Surat BA</span></h4>
+@endsection
 @section('content')
-    @include('partials.flash_message')
-
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title text-center" style="font-weight: bold; font-size: 24px;">DATA ARSIP SURAT BA</h2>
+        @include('partials.flash_message')
     <div style="display: flex; justify-content: space-between;">
-        <a href="{{ route('data_arsip.create') }}" class="btn btn-primary">Tambah</a>
-        <a href="{{ route('data_penerimas.data_penerima_tabelpdf') }}" class="btn btn-dark">Print List Surat BA</a>
+        <a href="{{ route('data_arsip.create') }}" class="btn btn-primary me-2">
+            <span class="tf-icons bx bx-plus me-1"></span> Tambah Data
+            </a>
     </div>
 
     <br>
 
-    <form action="{{ route('data_arsip.search') }}" method="get" class="form-inline mb-2">
-        @csrf
-        <div class="input-group">
-            <input type="text" name="kata" class="form-control" placeholder="Cari...">
-            <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
-        </div>
-    </form>
-
-    <div class="table-responsive">
-        <table class="table table-striped">
+    <div class="table-responsive table-sm">
+        <table id="myTable" class="stripe row-border order-column" style="width:10%" >
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Tanggal Surat</th>
-                    <th>Nomor Surat</th>
-                    <th>Perihal Surat</th>
-                    <th>Asal Surat</th>
-                    <th>File Surat</th>
-                    <th>Keterangan</th>
-                    <th>Tujuan Surat</th>
-                    <th>Action</th>
+                <th style="text-align: center;">No</th>
+                <th style="text-align: center;">Tanggal <br> Surat</th>
+                <th style="text-align: center;">Nomor <br> Surat</th>
+                <th style="text-align: center;">Perihal <br>  Surat</th>
+                <th style="text-align: center;">Asal <br> Surat</th>
+                <th style="text-align: center;">File Surat</th>
+                <th style="text-align: center;">Keterangan</th>
+                <th style="text-align: center;">Tujuan Surat</th>
+                <th style="text-align: center;">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($Data_arsip as $surat)
+                @foreach ($data_arsip as $surat)
                     <tr>
                         <td>{{ $surat->id }}</td>
                         <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $surat->tanggal_surat)->format('d-m-Y') }}</td>
@@ -79,4 +73,13 @@ use Carbon\Carbon;
             </tbody>
         </table>
     </div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            responsive: true
+        });
+    });
+</script>
 @endsection

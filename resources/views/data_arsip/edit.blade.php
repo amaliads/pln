@@ -1,7 +1,14 @@
 @extends('layouts.master')
+
+@section('title')
+    <h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Edit Data Arsip BA</span></h4>
+@endsection
+
 @section('content')
+<div class="card">
+    <div class="card-body">
 <div class="mb-3">
-    <h4>Edit Data Barang Dari Mitra</h4>
+    <h4>Edit Arsip Surat BA</h4>
     <form method="post" action="{{ route('data_arsip.update', $data_arsip->id) }}" enctype="multipart/form-data">
         @csrf
         @method('POST') <!-- Ubah method menjadi PUT -->

@@ -122,7 +122,7 @@
                             <div class="mb-3 d-grid">
                                 <button name="submit" type="submit" class="btn btn-primary">Login</button>
                             </div>
-                            <p class="mb-3"><a class="text-primary" href="/forget-password">Forgot password?</a></p>
+                            <p class="mb-3"><a class="text-primary" href="/data_register/edit">Forgot password?</a></p>
                             <p class="mb-2">Don't have an account? <a href="/reg-admin" class="link-info">Register here</a></p>
 
                         </div>

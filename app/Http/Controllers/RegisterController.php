@@ -20,6 +20,9 @@ class RegisterController extends Controller
     public function create(){
         return view('data_register.create');
     }
+    public function add(){
+        return view('data_register.add');
+    }
     public function store(Request $request){
         $this->validate($request,[
             'name'=>'required',

@@ -7,12 +7,13 @@ use App\Models\DataMitra;
 use App\Models\DataMitraPengembalian;
 use Illuminate\Support\Facades\Session;
 use PDF;
+use DataTables;
 
 class DataMitraController extends Controller
 {
     public function index()
     {
-        $data_mitra = DataMitra::orderBy('id', 'asc')->paginate(10);
+        $data_mitra = DataMitra::orderBy('id', 'asc')->get();
         $jumlah_data = $data_mitra->count();
         $no = 0;
         return view('data_mitra.index', compact('data_mitra', 'no', 'jumlah_data'));
@@ -106,7 +107,7 @@ class DataMitraController extends Controller
         }
         
         // Redirect setelah operasi penyimpanan dilakukan
-        return redirect()->route('data_penerimas.index')->with('success', 'Status berhasil diperbarui!');
+        return redirect()->route('data_mitrapengembalian.index')->with('success', 'Status berhasil diperbarui!');
         $data_mitra->save();
     
         // Menampilkan pesan kesuksesan

@@ -42,7 +42,7 @@
     <div class="card h-10">
       <img class="card-img-top" src="{{ asset('template/assets/img/datamitra.jpg')}}" alt="Card image cap" />
       <div class="card-body text-center">
-        <a href="{{ route('data_pengembalian.index') }}" class="card-link">
+        <a href="{{ route('data_mitra.index') }}" class="card-link">
           <h5 class="card-title fw-bold">Data Barang Masuk Dari Mitra</h5>
         </a>
       </div>
@@ -52,7 +52,7 @@
     <div class="card h-10">
       <img class="card-img-top" src="{{ asset('template/assets/img/kembalimitra.jpg')}}" alt="Card image cap" />
       <div class="card-body text-center"> 
-        <a href="{{ route('data_arsip.index') }}" class="card-link">
+        <a href="{{ route('data_mitrapengembalian.index') }}" class="card-link">
           <h5 class="card-title fw-bold">Data Pengembalian Barang Ke-Mitra </h5>
         </a>
       </div>
@@ -62,7 +62,7 @@
     <div class="card h-10">
       <img class="card-img-top" src="{{ asset('template/assets/img/terimapegawai.jpg')}}" alt="Card image cap" />
       <div class="card-body text-center">
-        <a href="{{ route('data_arsip.index') }}" class="card-link">
+        <a href="{{ route('data_penerimas.index') }}" class="card-link">
           <h5 class="card-title fw-bold">Data Pegawai Penerima Barang</h5>
         </a>
       </div>
@@ -72,7 +72,7 @@
     <div class="card h-10">
       <img class="card-img-top" src="{{ asset('template/assets/img/kembalipegawai.jpg')}}" alt="Card image cap" />
       <div class="card-body text-center">
-        <a href="{{ route('data_arsip.index') }}" class="card-link">
+        <a href="{{ route('data_pengembalian.index') }}" class="card-link">
           <h5 class="card-title fw-bold">Data Pengembalian Barang Pegawai</h5>
         </a>
       </div>

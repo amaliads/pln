@@ -6,14 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\DataMitraPengembalian;
 use Illuminate\Support\Facades\Session;
 use PDF;
+use DataTables;
 
 class DataMitraPengembalianController extends Controller
 {
     public function index()
     {
-        $data_mitrapengembalian = DataMitraPengembalian::orderBy('id', 'asc')->paginate(10);
+        $data_mitrapengembalian = DataMitraPengembalian::orderBy('id', 'asc')->get();
         $jumlah_data = $data_mitrapengembalian->count();
-        $no = ($data_mitrapengembalian->currentPage() - 1) * $data_mitrapengembalian->perPage();
+        $no = 0;
     
         return view('data_mitrapengembalian.index', compact('data_mitrapengembalian', 'no', 'jumlah_data'));
     }

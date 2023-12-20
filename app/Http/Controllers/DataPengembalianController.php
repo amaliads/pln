@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\DataPengembalian;
 use Session;
 use PDF;
+use DataTables;
 
 class DataPengembalianController extends Controller
 {
     public function index()
     {
-        $data_pengembalian = DataPengembalian::orderBy('id', 'asc')->paginate(10);
+        $data_pengembalian = DataPengembalian::orderBy('id', 'asc')->get();
         $jumlah_data = $data_pengembalian->count();
         $no = 0;
 
