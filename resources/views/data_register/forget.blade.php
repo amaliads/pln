@@ -6,10 +6,10 @@
     <title>Login</title>
     <style>
         body {
-            background-image: url('{{asset('template/assets/img/bg1.jpg')}}');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center; /* Menambahkan properti background-position */
+        background-image: url('{{asset('template/assets/img/bg1.jpg')}}');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center; /* Menambahkan properti background-position */
         }
 
         .custom-card {
@@ -34,7 +34,7 @@
         }
 
         .custom-card .card-title {
-            font-size: 28px;
+            font-size: 20px;
             font-weight: bold;
             color: #333;
         }
@@ -76,7 +76,7 @@
 }
 .bg-glass {
       background-color: hsla(0, 0%, 100%, 0.9) !important;
-      backdrop-filter: saturate(200%) blur(50px);
+      backdrop-filter: saturate(200%) blur(25px);
     }
     .login-title {
     text-align: center;
@@ -93,40 +93,41 @@
         <div class="card bg-glass" style="border-radius: 20px;">
                 <div class="card-body px-4 py-5">
                     <div class="text-center mb-4">
-                        <h2 class="fw-bold mb-4 text-center text-uppercase login-title">INFO</h2>
-                        <div class="container">
-                        <div class="row">
-                                <div class="col">
-                                    <h5 class="fw text-uppercase mb-2">Apabila akan registrasi akun silahkan hubungi contact person dibawah ini :</h5>
-                                    <table class="table" style="width: 100%; max-width: 400px;">
-    <tbody>
-        <tr>
-            <td style="width: 40%; padding-right: 10px; text-align: left; font-weight: bold;">Nama</td>
-            <td style="text-align: left;">Admin</td>
-        </tr>
-        <tr>
-            <td style="width: 40%; padding-right: 10px; text-align: left; font-weight: bold;">Bidang</td>
-            <td style="text-align: left;">Aset dan Properti Umum</td>
-        </tr>
-        <tr>
-            <td style="width: 40%; padding-right: 10px; text-align: left; font-weight: bold;">Email</td>
-            <td style="text-align: left;"><a href="mailto:bidangumumdanaset@gmail.com">bidangumumdanaset@gmail.com</a></td>
-        </tr>
-        <tr>
-            <td style="width: 40%; padding-right: 10px; text-align: left; font-weight: bold;">WhatsApp</td>
-            <td style="text-align: left;"><a href="https://wa.me/+6282326763615">+6282326763615</a></td>
-        </tr>
-    </tbody>
-</table>
-                        </div>
-                        <!-- Tambahkan tombol back ke halaman login -->
-                        <div class="text-center mt-4">
-                            <a href="/" class="btn btn-primary">Back to Login</a>
-                        </div>
+                        <img src="{{asset('template/assets/img/LOGOPLN.png')}}" alt="Logo Welcome" class="logo" style="width: 90px;">
+                        <h5 class="fw-bold mb-0 text-uppercase login-title">RESET PASSWORD<br> SISTEM PENDATAAN BARANG</h5>
                     </div>
-                </div>
-            </div>
-        </div>
+                <form method="post" action="{{ route('data_register.updateforget') }}">
+            @csrf
+            @method('post') <!-- Anda perlu menambahkan metode PUT untuk pembaruan -->
+        
+            <div class="mb-3">
+        <label for="email" class="form-label">Alamat E-mail</label>
+        <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+        <!-- Tambahkan atribut 'required' untuk memastikan alamat email diisi -->
     </div>
-</body>
-</html>
+
+    <div class="mb-3">
+        <label for="new_password" class="form-label">Password Baru</label>
+        <input type="password" name="new_password" id="new_password" class="form-control" placeholder="Password" required>
+        <!-- Tambahkan atribut 'required' untuk memastikan password baru diisi -->
+    </div>
+
+    <div class="mb-3">
+        <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Konfirmasi Password" required>
+        <!-- Tambahkan atribut 'required' untuk memastikan konfirmasi password diisi -->
+    </div>
+
+    <div class="mb-3 d-grid">
+        <button type="submit" class="btn rounded-pill me-2 btn-primary">Simpan Perubahan</button>
+        <!-- Mengubah teks tombol 'Save Changes' menjadi 'Simpan Perubahan' agar lebih jelas -->
+    </div>
+</form>
+
+<div class="mb-3 d-grid">
+    <a href="/" class="btn-label rounded-pill me-2 btn-primary">Kembali ke Halaman Login</a>
+    <!-- Mengubah teks tombol 'Back to Login' menjadi 'Kembali ke Halaman Login' agar lebih jelas -->
+</div>
+        </form>
+    </div>
+</div>

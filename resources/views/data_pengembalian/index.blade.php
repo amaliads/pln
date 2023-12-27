@@ -1,8 +1,14 @@
 use Carbon;
 @extends('layouts.master')
 @section('title')
-<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Pengembalian Barang Pegawai</span></h4>
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb" style="font-size: 14px;">
+        <li class="breadcrumb-item"><a href="/adminn">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Pengembalian Barang Pegawai</li>
+    </ol>
+</nav>
 @endsection
+
 @section('content')
 <div class="card">
     <div class="card-body">
@@ -16,10 +22,8 @@ use Carbon;
             @csrf
         </div>
         <br></br>
-            <div class="card">
-    <div class="card-body">
             <div class="table-responsive">
-            <table id="myTable" class="stripe row-border order-column" style="width:10%">
+            <table id="myTable" class="stripe row-border order-column" style="width:100%; font-size: 14px;">
                     <thead>
                         <tr>
                         <th style="text-align: center;">No</th>
@@ -40,7 +44,7 @@ use Carbon;
                 <tbody>
                     @foreach ($data_pengembalian as $barang)
                         <tr>
-                            <td>{{ $loop->index + 1 }}</td>
+                            <td style="text-align: center;">{{ $loop->index + 1 }}</td>
                             <td>{{ $barang->nama_pegawai }}</td>
                             <td>{{ $barang->NIP }}</td>
                             <td>{{ $barang->jabatan }}</td>
@@ -52,7 +56,17 @@ use Carbon;
                             <td>{{ $barang->kelengkapan_barang }}</td>
                             <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $barang->tanggal_pengembalian)->format('d-m-Y') }}</td>
                             <td>
-                                <span class="badge rounded-pill {{ $barang->status === 'update' ? 'bg-label-danger' : ($barang->status === 'store' ? 'badge rounded-pill' : 'bg-label-danger') }} me-1">{{ $barang->status }}</span>
+                            <span class="badge rounded-pill 
+    @if($barang->status === 'update') 
+        bg-label-danger
+    @elseif($barang->status === 'store') 
+        bg-label-danger
+    @else 
+        bg-danger
+    @endif
+    me-1">
+    {{ $barang->status }}
+</span>
                             </td>
                             <td>
                                 <div class="btn-group">
@@ -78,10 +92,10 @@ use Carbon;
             </table>
         </div>
 
-        <div class="pull-left">
+       <!-- <div class="pull-left">
             <strong>
                 Jumlah Pengembalian : {{ $jumlah_data }}
-            </strong>
+            </strong> -->
 </div>
 @endsection
 @section('script')

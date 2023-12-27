@@ -78,4 +78,37 @@ class RegisterController extends Controller
         return redirect('/myprofil')->with('success', 'Password berhasil diperbarui.');
 
     }
+
+    public function forget(){
+        $data_register = DataRegister::all();
+        return view('data_register.forget', compact('data_register'));
+    }
+
+    public function updateforget(Request $request)
+{
+    // Validasi input yang diperlukan (contoh: email, password)
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|min:6',
+    ]);
+
+    // Temukan pengguna berdasarkan alamat email
+    $user = DataRegister::where('email', $request->input('email'))->first();
+
+    // Periksa apakah pengguna ditemukan
+    if ($user) {
+        // Update password
+        $user->password = bcrypt($request->input('password'));
+        
+        // Simpan perubahan
+        $user->save();
+        
+        // Memberikan pesan bahwa password berhasil diperbarui
+        return redirect('/')->with('success', 'Password berhasil diperbarui.');
+    }
+    
+    // Pengguna tidak ditemukan, maka redirect dengan pesan error
+    return redirect('/')->with('error', 'Email tidak ditemukan.');
+}
+
 }

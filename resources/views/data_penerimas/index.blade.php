@@ -15,7 +15,12 @@
 }
 </style>
 @section('title')
-<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Penerima Barang Pegawai</span></h4>
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb" style="font-size: 14px;">
+        <li class="breadcrumb-item"><a href="/adminn">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Penerimaan Barang Pegawai</li>
+    </ol>
+</nav>
 @endsection
 @section('content')
 <div class="card">
@@ -34,7 +39,7 @@
         </div>
         <br></br>
         <div class="table-responsive table-sm">
-        <table id="myTable" class="stripe row-border order-column" style="width:10%">
+        <table id="myTable" class="stripe row-border order-column" style="width:100%; font-size: 14px;">
         <thead>
             <tr>
             <th style="text-align: center;">No</th>
@@ -55,7 +60,7 @@
         <tbody>
             @foreach ($data_penerimas as $item)
                 <tr>
-                    <td>{{ $loop->index+1 }}</td>
+                    <td style="text-align: center;">{{ $loop->index+1 }}</td>
                     <td>{{ $item->nama_pegawai }}</td>
                     <td>{{ $item->NIP }}</td>
                     <td>{{ $item->jabatan }}</td>
@@ -67,8 +72,17 @@
                     <td>{{ $item->kelengkapan_barang }}</td>
                     <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $item->tanggal_penerimaan)->format('d-m-Y') }}</td>
                     <td>
-                    <span class="badge rounded-pill {{ $item->status === 'update' ? 'bg-label-primary' : ($item->status === 'store' ? 'badge rounded-pill' : 'bg-label-success') }} me-1">{{ $item->status }}</span>
-
+                    <span class="badge rounded-pill 
+    @if($item->status === 'update') 
+        bg-label-success
+    @elseif($item->status === 'store') 
+        bg-label-success
+    @else 
+        bg-success
+    @endif
+    me-1">
+    {{ $item->status }}
+</span>
                     </td>
                     <td>
                     <div class="btn-group">
@@ -81,7 +95,7 @@
         </a>
         <form method="POST" action="{{ route('data_penerimas.destroy', $item->id) }}" onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">
             @csrf
-            @method('DELETE') <!-- Ubah method ke DELETE -->
+            @method('POST') <!-- Ubah method ke DELETE -->
             <button type="submit" class="dropdown-item">
                 <i class="bx bx-trash me-1"></i>Delete
             </button>
@@ -97,12 +111,12 @@
         </tbody>
     </table>
 
-    <!--<div class="pull-left">
+    <div class="pull-left">
         <strong>
             Jumlah Penerima: {{ $jumlah_penerima }}
         </strong>
     </div> 
-</div> -->
+</div>
 @endsection  
 @section('script')
 <script>

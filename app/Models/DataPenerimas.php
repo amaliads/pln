@@ -16,6 +16,11 @@ class DataPenerimas extends Model
         return $this->hasOne(DataPengembalian::class, 'data_penerimas_id');
     }
 
+    public function data_pegawai()
+    {
+        return $this->belongsTo(DataPegawai::class, 'id_pegawai_id');
+    }
+
     //public function data_surat()
     //{
    //     return this->hasOne()

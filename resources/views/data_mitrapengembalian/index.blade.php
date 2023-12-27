@@ -1,7 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Pengembalian Barang ke Mitra</span></h4>
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb" style="font-size: 14px;">
+        <li class="breadcrumb-item"><a href="/adminn">Home</a></li>
+        <li class="breadcrumb-item"><a href="/data_mitrapengembalian">Data Penerimaan Barang Mitra</a></li>
+    </ol>
+</nav>
 @endsection
 @section('content')
 <div class="card">
@@ -17,7 +22,7 @@
         <br><br>
         </div>
         <div class="table-responsive table-sm">
-        <table id="myTable" class="stripe row-border order-column" style="width:10%">
+        <table id="myTable" class="stripe row-border order-column" style="width:100%; font-size: 14px;">
         <thead>
             <tr>
             <th style="text-align: center;">No</th>
@@ -37,7 +42,7 @@
         <tbody>
             @foreach ($data_mitrapengembalian as $mitrakembali)
                 <tr>
-                    <td>{{ $loop->index+1 }}</td>
+                    <td style="text-align: center;">{{ $loop->index+1 }}</td>
                     <td>{{ $mitrakembali->mitra_pengirim }}</td>
                     <td>{{ $mitrakembali->type_barang }}</td>
                     <td>{{ $mitrakembali->jenis_barang }}</td>
@@ -48,7 +53,17 @@
                     <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $mitrakembali->tanggal_pengembalian)->format('d-m-Y') }}</td>
                     <td>{{ $mitrakembali->yang_menerima }}</td>
                     <td>
-                    <span class="badge rounded-pill {{ $mitrakembali->status === 'update' ? 'bg-label-danger' : ($mitrakembali->status === 'store' ? 'badge rounded-pill' : 'bg-label-danger') }} me-1">{{ $mitrakembali->status }}</span>
+                    <span class="badge rounded-pill 
+    @if($mitrakembali->status === 'update') 
+        bg-label-danger
+    @elseif($mitrakembali->status === 'store') 
+        bg-label-danger
+    @else 
+        bg-danger
+    @endif
+    me-1">
+    {{ $mitrakembali->status }}
+</span>
                     <td>
                     <div class="btn-group">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>

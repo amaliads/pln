@@ -1,7 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Penerima Barang Dari Mitra</span></h4>
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb" style="font-size: 14px;">
+        <li class="breadcrumb-item"><a href="/adminn">Home</a></li>
+        <li class="breadcrumb-item"><a href="/data_mitra">Data Penerimaan Barang Mitra</a></li>
+    </ol>
+</nav>
 @endsection
 @section('content')
 <div class="card">
@@ -19,14 +24,8 @@
 </div>
 
 <br> </br>
-        <form action="{{ route('data_mitra.search') }}" method="get" class="form-inline">
-            @csrf
-            <div class="input-group mb-2">
-                <input type="text" name="kata" class="form-control" placeholder="Cari...">
-                <button type="submit" class="btn btn-primary"><i class="bx bx-search"></i> Cari</button>
-    </div>
 <div class="table-responsive">
-<table id="myTable" class="stripe row-border order-column" style="width:10%">
+<table id="myTable" class="stripe row-border order-column" style="width:100%; font-size: 14px;">
         <thead>
             <tr>
             <th style="text-align: center;">No</th>
@@ -46,7 +45,7 @@
         <tbody>
             @foreach ($data_mitra as $mitra)
                 <tr>
-                    <td>{{ $loop->index+1 }}</td>
+                    <td style="text-align: center;">{{ $loop->index+1 }}</td>
                     <td>{{ $mitra->mitra_pengirim }}</td>
                     <td>{{ $mitra->type_barang }}</td>
                     <td>{{ $mitra->jenis_barang }}</td>
@@ -57,7 +56,17 @@
                     <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $mitra->tanggal_penerimaan)->format('d-m-Y') }}</td>
                     <td>{{ $mitra->yang_menerima }}</td>
                     <td>
-                    <span class="badge rounded-pill {{ $mitra->status === 'update' ? 'bg-label-primary' : ($mitra->status === 'store' ? 'badge rounded-pill' : 'bg-label-success') }} me-1">{{ $mitra->status }}</span>
+                    <span class="badge rounded-pill 
+    @if($mitra->status === 'update') 
+            bg-label-success
+    @elseif($mitra->status === 'store') 
+        bg-label-success
+    @else 
+        bg-success
+    @endif
+    me-1">
+    {{ $mitra->status }}
+</span>
                     <td>
                     <div class="btn-group">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>

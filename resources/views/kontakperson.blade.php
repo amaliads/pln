@@ -1,6 +1,11 @@
 @extends('layouts.master')
 @section('title')
-<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Contact Person</span></h4>
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb" style="font-size: 14px;">
+        <li class="breadcrumb-item"><a href="/adminn">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Contact Person</li>
+    </ol>
+</nav>
 @endsection
 @section('content')
 <div class="card">

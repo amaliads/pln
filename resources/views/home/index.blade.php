@@ -1,91 +1,167 @@
 @extends('layouts.master')
 
-@section('title')
-<style>
-    .rounded-image {
-        width: 100%;
-        height: auto;
-        border-radius: 20px; /* You can adjust this value to control the roundness */
-        overflow: hidden;
-    }
-
-    .layout-without-navbar-light {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around; /* Adjust as needed */
-    }
-
-    .col {
-        width: calc(20% - 1rem); /* Adjust the width and margin between columns */
-        margin-right: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    .card {
-        width: 11rem; /* Set fixed width for the card */
-        height: 18rem; /* Set fixed height for the card */
-        margin-bottom: 0.5rem; /* Adjust the margin between cards */
-    }
-
-    .card-img-top {
-        width: 100%;
-        height: 11rem; /* Adjust the image height as needed */
-        object-fit: cover;
-    }
-    </style>
-
-<img src="{{ asset('template/assets/img/banner.jpg') }}" alt="landingpage" class="rounded-image">
-<br> 
-<br>
-<div class="layout-without-navbar-light"> <!-- Adjust the gap between cards (g-2) -->
-  <div class="col mb-3">
-    <div class="card h-10">
-      <img class="card-img-top" src="{{ asset('template/assets/img/datamitra.jpg')}}" alt="Card image cap" />
-      <div class="card-body text-center">
-        <a href="{{ route('data_mitra.index') }}" class="card-link">
-          <h5 class="card-title fw-bold">Data Barang Masuk Dari Mitra</h5>
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="col mb-3">
-    <div class="card h-10">
-      <img class="card-img-top" src="{{ asset('template/assets/img/kembalimitra.jpg')}}" alt="Card image cap" />
-      <div class="card-body text-center"> 
-        <a href="{{ route('data_mitrapengembalian.index') }}" class="card-link">
-          <h5 class="card-title fw-bold">Data Pengembalian Barang Ke-Mitra </h5>
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="col mb-3">
-    <div class="card h-10">
-      <img class="card-img-top" src="{{ asset('template/assets/img/terimapegawai.jpg')}}" alt="Card image cap" />
-      <div class="card-body text-center">
-        <a href="{{ route('data_penerimas.index') }}" class="card-link">
-          <h5 class="card-title fw-bold">Data Pegawai Penerima Barang</h5>
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="col mb-3">
-    <div class="card h-10">
-      <img class="card-img-top" src="{{ asset('template/assets/img/kembalipegawai.jpg')}}" alt="Card image cap" />
-      <div class="card-body text-center">
-        <a href="{{ route('data_pengembalian.index') }}" class="card-link">
-          <h5 class="card-title fw-bold">Data Pengembalian Barang Pegawai</h5>
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="col mb-3">
-    <div class="card h-10">
-      <img class="card-img-top" src="{{ asset('template/assets/img/suratBA.jpg')}}" alt="Card image cap" />
-      <div class="card-body text-center">
-      <a href="{{ route('data_arsip.index') }}" class="card-link">
-          <h5 class="card-title fw-bold">Data Arsip Surat Berita Acara</h5>
-        </a>
-      </div>
-    </div>
-
+@section('vendor-style')
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}">
 @endsection
+
+@section('vendor-script')
+<script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
+@endsection
+
+@section('page-script')
+<script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
+@endsection
+
+<style>
+  .larger-text {
+    font-size: 17px; /* Adjust the size as needed */
+    font-weight: bold;
+  }
+</style>
+
+@section('content')
+    <div class="row">
+        <div class="col-lg-12 mb-4 order-0">
+            <div class="card">
+                <!-- Konten untuk bagian atas -->
+                <div class="d-flex align-items-end row">
+                    <!-- Konten pada sisi kiri -->
+                    <div class="col-sm-7">
+                        <div class="card-body">
+                            <!-- Teks sambutan -->
+                            @if(Auth::check())
+                                <h4 class="card-title text-primary">Selamat Datang, {{ Auth::user()->name }}!👋🏻</h4>
+                            @endif
+                            <p class="mb-1 larger-text"><strong>Selamat Datang di Aplikasi Sistem Pendataan Barang (SIDABAR)</strong></p>
+                            <p class="mb-1"><strong>PT. PLN UNIT INDUK DISTRIBUSI (UID) JAWA TENGAH & D.I. YOGYAKARTA</strong></p>
+                            @if(Auth::check())
+                            <a href="/myprofil" class="btn btn-sm btn-outline-primary">My Profil</a>
+                            @else
+                            @endif
+                        </div>
+                    </div>
+                    <!-- Konten pada sisi kanan -->
+                    <div class="col-sm-5 text-center text-sm-left">
+                        <div class="card-body pb-0 px-0 px-md-5" style="height: 90%;">
+                            <!-- Gambar placeholder -->
+                            <img src="{{ asset('template/assets/img/illustrations/sitting-girl-with-laptop-dark.png') }}"
+                                height="150" alt="MY PROFIL"
+                                data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png"
+                                data-app-light-img="illustrations/sitting-girl-with-laptop-dark.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Konten untuk keempat card -->
+        <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card shadow card-border-shadow-warning h-100" style="box-shadow: 20 10 10px rgba(6, 100, 255, 0.5);">
+                <!-- Isi Card 1 -->
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2 pb-1">
+                        <div class="avatar me-2">
+                            <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-dock-bottom"></i></span>
+                        </div>
+                        <!-- Tambahkan konten sesuai kebutuhan -->
+                        <h3 class="ms-1 mb-0 fw-bold">{{ $data_mitra }}</h3>
+                    </div>
+                    <!-- Tambahkan konten lainnya -->
+                    <p class="mb-2">Total Data Penerimaan Barang dari Mitra</p>
+                    <p class="mb-0">
+                        <span class="fw-medium me-1"></span>
+                        @if(Auth::user() && Auth::user()->role == 'adminn')
+                        <a href="{{ route('data_mitra.index') }}" class="text">View details</a>
+                        @endif
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Konten untuk keempat card -->
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card shadow card-border-shadow-primary h-100">
+                <!-- Isi Card 1 -->
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2 pb-1">
+                        <div class="avatar me-2">
+                            <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-cabinet"></i></span>
+                        </div>
+                        <!-- Tambahkan konten sesuai kebutuhan -->
+                        <h3 class="ms-1 mb-0 fw-bold">{{ $data_mitrapengembalian }}</h3>
+                    </div>
+                    <!-- Tambahkan konten lainnya -->
+                    <p class="mb-2">Total Data Pengembalian Barang Mitra</p>
+                    <p class="mb-0">
+                        <span class="fw-medium me-1"></span>
+                        @if(Auth::user() && Auth::user()->role == 'adminn')
+                        <a href="{{ route('data_mitrapengembalian.index') }}" class="text">View details</a>
+                        @endif
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card shadow card-border-shadow-success h-100">
+                <!-- Isi Card 1 -->
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2 pb-1">
+                        <div class="avatar me-2">
+                            <span class="avatar-initial rounded bg-label-success"><i class="bx bx-devices"></i></span>
+                        </div>
+                        <!-- Tambahkan konten sesuai kebutuhan -->
+                        <h3 class="ms-1 mb-0 fw-bold">{{ $data_penerimas }}</h3>
+                    </div>
+                    <!-- Tambahkan konten lainnya -->
+                    <p class="mb-2">Total Data Pegawai Penerima Barang</p>
+                    <p class="mb-0">
+                        <span class="fw-medium me-1"></span>
+                        <a href="{{route('data_penerimas.index')}}" class="text">View details</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card shadow card-border-shadow-primary h-100">
+                <!-- Isi Card 1 -->
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2 pb-1">
+                        <div class="avatar me-2">
+                            <span class="avatar-initial rounded bg-label-danger"><i class="bx bx-laptop"></i></span>
+                        </div>
+                        <!-- Tambahkan konten sesuai kebutuhan -->
+                        <h3 class="ms-1 mb-0 fw-bold">{{ $data_pengembalian }}</h3>
+                    </div>
+                    <!-- Tambahkan konten lainnya -->
+                    <p class="mb-2">Total Data Pengembalian Barang Pegawai</p>
+                    <p class="mb-0">
+                        <span class="fw-medium me-1"></span>
+                        <a href="{{ route('data_pengembalian.index') }}" class="text">View details</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 2 -->
+        <!-- Card 3 -->
+        <!-- Card 4 -->
+    </div>
+
+    <div class="row">
+        <!-- Konten lainnya sesuai kebutuhan -->
+    </div>
+
+    <div class="row">
+        <!-- Konten lainnya sesuai kebutuhan -->
+    </div>
+
+    <div class="row">
+        <!-- Konten lainnya sesuai kebutuhan -->
+    </div>
+@endsection
+<style>
+    /* CSS di sini hanya sebagai contoh */
+    /* Ganti warna tautan setelah diklik */
+    a.text-muted:visited {
+        color: purple; /* Ubah warna menjadi ungu setelah diklik */
+    }
+</style>

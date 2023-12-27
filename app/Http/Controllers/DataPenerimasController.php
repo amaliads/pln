@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use App\Models\DataPenerimas; // Sesuaikan dengan namespace dan nama model yang benar
 use App\Models\DataPengembalian;
+use App\Models\DataPegawai;
+use App\Http\Controllers\HomeController;
 use Session;
 use PDF;
 use DataTables;
@@ -55,6 +57,9 @@ class DataPenerimasController extends Controller
     }
 
     public function update(Request $request, $id){
+        $this->validate($request,[
+            'tanggal_pengembalian' => 'required|date',
+        ]);
         $data_penerimas = DataPenerimas::find($id);
         $data_penerimas->nama_pegawai = $request->nama_pegawai;
         $data_penerimas->NIP = $request->NIP;
@@ -101,16 +106,29 @@ class DataPenerimasController extends Controller
 
     public function data_penerimas_pdf($id) {
         $data_penerimas = DataPenerimas::find($id);
+        $data_pegawai = DataPegawai::all();
+
+        // Mengambil data pegawai yang tidak terkait dengan data penerima yang dipilih
+        $data_pegawai = $data_pegawai->reject(function ($data_pegawai) use ($data_penerimas) {
+            return $data_pegawai->id == $data_penerimas->data_pegawai_id;
+        });
 
         if (!$data_penerimas) {
             // Jika data tidak ditemukan, Anda dapat menangani kasus ini sesuai kebutuhan
             return response()->json(['message' => 'Data Penerima tidak ditemukan'], 404);
         }
+        $data_pegawai = DataPegawai::get();
+
+        foreach ($data_pegawai as $pegawai) {
+            echo $pegawai->nama_pihak;
+            echo $pegawai->NIP;
+            echo $pegawai->jabatan;
+        }
         $nama_pegawai = $data_penerimas->nama_pegawai; // Sesuaikan dengan field yang dimiliki oleh model 'DataPenerima'
         $jabatan = $data_penerimas->jabatan; // Sesuaikan dengan field yang dimiliki oleh model 'DataPenerima'
         $type_barang = $data_penerimas->type_barang; // Sesuaikan dengan field yang dimiliki oleh model 'DataPenerima'
 
-        $pdf = \PDF::loadView('data_penerimas.data_penerimas_pdf', compact('data_penerimas'))->setPaper('F4', 'potrait');;
+        $pdf = \PDF::loadView('data_penerimas.data_penerimas_pdf', compact('data_penerimas', 'data_pegawai'))->setPaper('F4', 'potrait');;
 
         return $pdf->stream($data_penerimas->surat_berita_acara . '.pdf');
     }
@@ -118,9 +136,16 @@ class DataPenerimasController extends Controller
     public function showDataPenerimas($id) {
         // Assuming DataPenerima is your model
         $data_penerimas = DataPenerimas::find($id);
+        $data_pegawai = DataPegawai::get();
+
+        foreach ($data_pegawai as $pegawai) {
+            echo $pegawai->nama_pihak;
+            echo $pegawai->NIP;
+            echo $pegawai->jabatan;
+        }
     
         // Assuming you have variables $hari, $tanggal, $bulan, $tahun
-        return view('data_penerimas.data_penerimas_pdf', compact('data_penerimas', 'hari', 'tanggal', 'bulan', 'tahun', 'jenis_barang','merk_barang', 'serial_number','kelengkapan_barang'));
+        return view('data_penerimas.data_penerimas_pdf', compact('data_penerimas', 'data_pegawai' ,'hari', 'tanggal', 'bulan', 'tahun', 'jenis_barang','merk_barang', 'serial_number','kelengkapan_barang'));
     }
 
     public function data_penerima_tabelpdf() {

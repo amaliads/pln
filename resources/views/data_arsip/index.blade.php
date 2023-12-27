@@ -17,7 +17,7 @@
     <br>
 
     <div class="table-responsive table-sm">
-        <table id="myTable" class="stripe row-border order-column" style="width:10%" >
+    <table id="myTable" class="stripe row-border order-column" style="width:100%; font-size: 14px;">
             <thead>
                 <tr>
                 <th style="text-align: center;">No</th>
@@ -34,7 +34,7 @@
             <tbody>
                 @foreach ($data_arsip as $surat)
                     <tr>
-                        <td>{{ $surat->id }}</td>
+                        <td style="text-align: center;">{{ $surat->id }}</td>
                         <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $surat->tanggal_surat)->format('d-m-Y') }}</td>
                         <td>{{ $surat->nomor_surat }} </td>
                         <td>{{ $surat->perihal_surat }}</td>

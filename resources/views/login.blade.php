@@ -6,31 +6,43 @@
     <title>Login</title>
     <style>
         body {
-            background-image: url('{{asset('template/assets/img/b.jpg')}}');
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
+    background-image: url('{{asset('template/assets/img/bg1.jpg')}}');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; /* Menambahkan properti background-position */
+}
 
         .custom-card {
             background-color: transparent;
             padding: 10px;
             border-radius: 15px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            @media (max-width: 768px) {
-    .custom-card {
-        width: 90%; /* Misalnya, 90% dari lebar parent */
-        /* Properti lainnya */
+}
+@media (max-width: 576px) {
+    .card {
+        width: 100%;
+        margin: 0 auto;
+        /* Atur properti lainnya sesuai kebutuhan */
     }
 }
 
-/* Untuk layar berukuran sedang atau besar */
-@media (min-width: 769px) {
-    .custom-card {
-        width: 50%; /* Misalnya, 50% dari lebar parent */
-        /* Properti lainnya */
+/* Untuk card pada layar tablet */
+@media (min-width: 577px) and (max-width: 1024px) {
+    .card {
+        width: 100%;
+        margin: 0 auto;
+        /* Atur properti lainnya sesuai kebutuhan */
     }
 }
-        }
+
+/* Untuk card pada layar desktop */
+@media (min-width: 1025px) {
+    .card {
+        width: 100%;
+        margin: 0 auto;
+        /* Atur properti lainnya sesuai kebutuhan */
+    }
+}
 
         .custom-card .card-title {
             font-size: 28px;
@@ -86,51 +98,50 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container py-5">
-        <div class="row justify-content-end">
-            <div class="col-md-4">
-                <div class="card bg-glass">
-                <div class="card-body px-4 py-5 px-md-5">
-                <h2 class="fw-bold mb-2 text-uppercase login-title" style="font-size: 24px;">WELCOME SIDABAR</h2>
-                <h2 class="fw-bold mb-2 text-uppercase login-title" style="font-size: 20px;">LOGIN</h2>
-
-                        @if($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach($errors->all() as $item)
-                                        <li>{{ $item }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <form action="" method="POST">
-                            @csrf
-                            <div class="mb-3">
-                <input type="email" value="{{ old('email')}}" name="email" class="form-control" placeholder="Email">
-                            </div>
-                            <div class="mb-3">
-                                <input type="password" name="password" class="form-control" placeholder="Password">
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="mb-3 d-grid">
-                                <button name="submit" type="submit" class="btn btn-primary">Login</button>
-                            </div>
-                            <p class="mb-3"><a class="text-primary" href="/data_register/edit">Forgot password?</a></p>
-                            <p class="mb-2">Don't have an account? <a href="/reg-admin" class="link-info">Register here</a></p>
-
-                        </div>
-                        </form>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+        <div class="card bg-glass" style="border-radius: 20px;">
+                <div class="card-body px-4 py-5">
+                    <div class="text-center mb-4">
+                        <img src="{{asset('template/assets/img/LOGOPLN.png')}}" alt="Logo Welcome" class="logo" style="width: 90px;">
+                        <h6 class="fw-bold mb-0 text-uppercase login-title">LOGIN SIDABAR <br> SISTEM PENDATAAN BARANG <br> PT. PLN UID JATENG & DIY</h6>
                     </div>
+
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach($errors->all() as $item)
+                                    <li>{{ $item }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <input type="email" value="{{ old('email')}}" name="email" class="form-control" placeholder="Email">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" name="password" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="remember">
+                                    {{ __('Remember Me') }}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3 d-grid">
+                            <button name="submit" type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                        <p class="mb-3"><a class="text-primary" href="/data_register/forget">Forgot password?</a></p>
+                        <p class="mb-0">Don't have an account? <a href="/reg-admin" class="link-info">Register here</a></p>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>

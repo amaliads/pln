@@ -1,8 +1,14 @@
 @extends('layouts.master')
 @section('title')
-<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Penerima Pegawai</span>/<span style="font-weight: bold;">Tambah Edit Data</span></h4>
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb" style="font-size: 14px;">
+        <li class="breadcrumb-item"><a href="/adminn">Home</a></li>
+        <li class="breadcrumb-item"><a href="/data_penerimas">Penerimaan Barang Pegawai</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit Data</li>
+    </ol>
+</nav>
 @endsection
-@section('content')
+@section ('content')
 <div class="card">
     <div class="card-body">
     <h2 class="card-title text-center" style="font-weight: bold; font-size: 24px;">EDIT DATA PENERIMA BARANG PEGAWAI</h2>
@@ -57,8 +63,9 @@
         </div>
         <div class="mb-3">
     <label for="tanggal_pengembalian" id="tanggal_pengembalian_label" style="display: none;">Tanggal Pengembalian</label>
-    <input type="date" name="tanggal_pengembalian" id="tanggal_pengembalian" class="form-control" style="display: none;">
+    <input type="date" name="tanggal_pengembalian" id="tanggal_pengembalian" class="form-control" required>
 </div>
+
 
 <div class="form-group">
     <p class="text-dark fw-medium d-block">Select Status Barang</p>
@@ -100,6 +107,25 @@
         });
     });
 </script>
+<script>
+    // Fungsi untuk menampilkan/menyembunyikan input dan label
+    function toggleDateInput() {
+        var tanggalPengembalianLabel = document.getElementById('tanggal_pengembalian_label');
+        var tanggalPengembalianInput = document.getElementById('tanggal_pengembalian');
+
+        // Jika elemen tersembunyi, tampilkan dan buat wajib diisi
+        if (tanggalPengembalianLabel.style.display === 'none') {
+            tanggalPengembalianLabel.style.display = 'block';
+            tanggalPengembalianInput.style.display = 'block';
+            tanggalPengembalianInput.required = true; // Tambahkan atribut required
+        } else { // Jika terlihat, sembunyikan dan hapus kewajiban diisi
+            tanggalPengembalianLabel.style.display = 'none';
+            tanggalPengembalianInput.style.display = 'none';
+            tanggalPengembalianInput.required = false; // Hapus atribut required
+        }
+    }
+</script>
+
     </form>
 </div>
 @endsection

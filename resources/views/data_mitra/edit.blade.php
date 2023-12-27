@@ -1,7 +1,13 @@
 @extends('layouts.master')
 
 @section('title')
-<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">Data Penerimaan Barang Dari Mitra</span>/<span style="font-weight: bold;">Edit Data</span></h4>
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb" style="font-size: 14px;">
+        <li class="breadcrumb-item"><a href="/adminn">Home</a></li>
+        <li class="breadcrumb-item"><a href="/data_mitra">Data Penerimaan Barang Mitra</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit Penerimaan Barang Mitra</li>
+    </ol>
+</nav>
 @endsection
 @section('content')
 <div class="card">
@@ -55,7 +61,7 @@
         </div>
         <div class="mb-3">
     <label for="tanggal_pengembalian" id="tanggal_pengembalian_label" style="display: none;">Tanggal Pengembalian</label>
-    <input type="date" name="tanggal_pengembalian" id="tanggal_pengembalian" class="form-control" style="display: none;">
+    <input type="date" name="tanggal_pengembalian" id="tanggal_pengembalian" class="form-control" required>
 </div>
 
 <div class="form-group">

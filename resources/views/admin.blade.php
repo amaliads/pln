@@ -11,19 +11,22 @@
 
 <body class="bg-secondary">
   <div class="bg-white container-sm col-6 border my-3 rounded px-5 py-3 pb-5">
-    <h1>Halo!!</h1>
-    <div>Selamat datang di halaman admin</div>
-    <div><a href="/logout" class="btn btn-sm btn-secondary">Logout >></a></div>
-    <div class="card mt-3">
-      <ul class="list-group list-group-flush">
+    <h5>Apakah anda ingin keluar dari website ini?</h5>
+    <div></div>
+    <div>
         @if(Auth::user()->role == 'adminn')
-        <li class="list-group-item">Menu adminn</li>
+        <li>Silahkan lakukan logout dulu di halaman website!</li>
         @endif
         @if(Auth::user()->role == 'pengguna')
-        <li class="list-group-item">Menu pengguna</li>
+        <li>Silahkan lakukan logout dulu di halaman website!</li>
         @endif
-      </ul>
     </div>
+        @if(Auth::user()->role == 'adminn')
+        <div><a href="adminn" class="btn btn-sm btn-secondary">Kembali ke Website >></a></div>
+        @endif
+        @if(Auth::user()->role == 'pengguna')
+        <div><a href="pengguna" class="btn btn-sm btn-secondary">Kembali ke Website >></a></div>
+        @endif
 
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

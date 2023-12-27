@@ -15,7 +15,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Controller;
-
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DataPegawaiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +28,13 @@ use App\Http\Controllers\Controller;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
+
+Route::get('/', [HomeController::class, 'index'])->name('/');
+
+/*Route::get('/', function () {
     return view('home.index');
     
-});
+});*/
 
 Route::get('/kontakperson', function () {
     return view('kontakperson');
@@ -125,7 +129,9 @@ Route::get('data_register/create', [RegisterController::class, 'create'])->name(
 Route::get('data_register/add', [RegisterController::class, 'add'])->name('data_register.add');
 Route::post('data_register/store', [RegisterController::class, 'store'])->name('data_register.store');
 Route::get('data_register/edit', [RegisterController::class, 'edit'])->name('data_register.edit');
+Route::get('data_register/forget', [RegisterController::class, 'forget'])->name('data_register.forget');
 Route::post('data_register/update', [RegisterController::class, 'update'])->name('data_register.update');
+Route::post('data_register/updateforget', [RegisterController::class, 'updateforget'])->name('data_register.updateforget');
 Route::get('/myprofil', function () {
     return view('myprofil');
 });
@@ -137,3 +143,9 @@ Route::post('forget-password', [ForgotPasswordController::class, 'postEmail']);
 
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'getPassword']);
 Route::post('reset-password', [ResetPasswordController::class, 'updatePassword']);
+
+Route::get('data_pegawai', [DataPegawaiController::class, 'index'])->name('data_pegawai.index');
+Route::get('data_pegawai/create', [DataPegawaiController::class, 'create'])->name('data_pegawai.create');
+Route::post('data_pegawai/store', [DataPegawaiController::class, 'store'])->name('data_pegawai.store');
+Route::get('data_pegawai/edit/{id}', [DataPegawaiController::class, 'edit'])->name('data_pegawai.edit');
+Route::post('data_pegawai/update/{id}', [DataPegawaiController::class, 'update'])->name('data_pegawai.update');

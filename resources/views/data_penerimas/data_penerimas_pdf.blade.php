@@ -68,33 +68,41 @@
         <div class="signatories">
     <table>
         <tr>
+$data_pegawai = DataPegawai::get();
+?>
+<div>
+    <table>
+        <tr>
             <td><strong>Pihak Pertama:</strong></td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
-        <tr>
-            <td>Nama</td>
-            <td>: Soleh</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>Jabatan:</td>
-            <td>: Staff</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>NIP</td>
-            <td>: 4270298902</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
+        @foreach ($data_pegawai as $pegawai)
+            <tr>
+                <td>Nama</td>
+                <td>: {{ $pegawai->nama_pihak }}</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Jabatan:</td>
+                <td>: {{ $pegawai->jabatan }}</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>NIP</td>
+                <td>: {{ $pegawai->NIP }}</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        @endforeach
+
         @if ($data_penerimas && is_object($data_penerimas))
             <tr>
                 <td><strong>Pihak Kedua:</strong></td>
@@ -112,14 +120,14 @@
             </tr>
             <tr>
                 <td>Jabatan</td>
-                <td>:  {{ $data_penerimas->jabatan }}</td>
+                <td>: {{ $data_penerimas->jabatan }}</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
                 <td>NIP</td>
-                <td>:  {{ $data_penerimas->NIP }}</td>
+                <td>: {{ $data_penerimas->NIP }}</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
@@ -163,7 +171,7 @@
                     <br>
                     <br>
                     <br>
-                    <p class="signature-party">Sobar</p>
+                    <p class="signature-party">{{ $pegawai->nama_pihak }}</p>
                 @endif
             </div>
         </td>

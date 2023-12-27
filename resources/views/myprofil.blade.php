@@ -1,6 +1,11 @@
 @extends('layouts.master')
 @section('title')
-<h4><a href="/adminn" style="color: black;">Home</a>/<span style="font-weight: bold;">My Profil</span></h4>
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb" style="font-size: 14px;">
+        <li class="breadcrumb-item"><a href="/adminn">Home</a></li>
+        <li class="breadcrumb-item active"><a href="/myprofil">My Profil</a></li>
+    </ol>
+</nav>
 @endsection
 @section('content')
 <div class="card">
@@ -44,7 +49,7 @@
                         <td>Password</td>
                         <td>
                             <!-- Button untuk memicu modal penggantian kata sandi -->
-                            <a class="btn rounded-pill me-2 btn-warning" href="/data_register/edit" style="display: inline-block; vertical-align: middle;">Change Password</a>
+                            <a class="btn rounded-pill me-2 btn-danger" href="/data_register/edit" style="display: inline-block; vertical-align: middle;">Change Password</a>
                         </td>
                     @endif
                 </tr>
