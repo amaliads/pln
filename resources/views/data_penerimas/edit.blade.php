@@ -63,7 +63,7 @@
         </div>
         <div class="mb-3">
     <label for="tanggal_pengembalian" id="tanggal_pengembalian_label" style="display: none;">Tanggal Pengembalian</label>
-    <input type="date" name="tanggal_pengembalian" id="tanggal_pengembalian" class="form-control" required>
+    <input type="date" name="tanggal_pengembalian" id="tanggal_pengembalian" class="form-control" style="display: none;">
 </div>
 
 
@@ -106,8 +106,7 @@
             alert('Proses pengembalian dilakukan!');
         });
     });
-</script>
-<script>
+
     // Fungsi untuk menampilkan/menyembunyikan input dan label
     function toggleDateInput() {
         var tanggalPengembalianLabel = document.getElementById('tanggal_pengembalian_label');
@@ -125,6 +124,7 @@
         }
     }
 </script>
+
 
     </form>
 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DataMitraPengembalian;
+use App\Models\DataMitra;
 use Illuminate\Support\Facades\Session;
 use PDF;
 use DataTables;
@@ -67,6 +68,7 @@ class DataMitraPengembalianController extends Controller
             'kelengkapan_barang' => 'required|string',
             'tanggal_pengembalian' => 'required|date',
             'yang_menerima' => 'required|string',
+            'status' => 'required|in:DITERIMA,DIKEMBALIKAN',
         ]);
     
         $data_mitrapengembalian = DataMitraPengembalian::find($id);
@@ -75,29 +77,39 @@ class DataMitraPengembalianController extends Controller
             return redirect()->back()->with('error', 'Data tidak ditemukan.');
         }
     
-        // Menyimpan data setelah validasi
-        $data_mitrapengembalian->mitra_pengirim = $request->mitra_pengirim;
-        $data_mitrapengembalian->jenis_barang = $request->jenis_barang;
-        $data_mitrapengembalian->merk_barang = $request->merk_barang;
-        $data_mitrapengembalian->type_barang = $request->type_barang;
-        $data_mitrapengembalian->jumlah_barang = $request->jumlah_barang;
-        $data_mitrapengembalian->serial_number = $request->serial_number;
-        $data_mitrapengembalian->kelengkapan_barang = $request->kelengkapan_barang;
-        $data_mitrapengembalian->tanggal_pengembalian = $request->tanggal_pengembalian;
-        $data_mitrapengembalian->yang_menerima = $request->yang_menerima;
-        $data_mitrapengembalian->status = $request->status;
-        $data_mitrapengembalian->save();
+        // Update fields based on the request data
+        $data_mitrapengembalian->fill($request->all());
         
-        // Redirect setelah operasi penyimpanan dilakukan
-        return redirect()->route('data_mitrapengembalian.index')->with('success', 'Status berhasil diperbarui!');
-        $data_mitrapengembalian->save();
     
-        // Menampilkan pesan kesuksesan
-        return redirect('data_mitrapengembalian')->with([
-            'flash_message' => 'Data Berhasil Di Update',
-            'flash_color' => 'info'
-        ]);
-    }    
+        // Check if the status is changing to 'DITERIMA'
+        if ($request->status === 'DITERIMA') {
+            // Move data to DataPenerima
+            $data_mitra = new DataMitra();
+            $data_mitra->mitra_pengirim = $data_mitrapengembalian->mitra_pengirim;
+            $data_mitra->jenis_barang = $data_mitrapengembalian->jenis_barang;
+            $data_mitra->merk_barang = $data_mitrapengembalian->merk_barang;
+            $data_mitra->type_barang = $data_mitrapengembalian->type_barang;
+            $data_mitra->jumlah_barang = $data_mitrapengembalian->jumlah_barang;
+            $data_mitra->serial_number = $data_mitrapengembalian->serial_number;
+            $data_mitra->kelengkapan_barang = $data_mitrapengembalian->kelengkapan_barang;
+            $data_mitra->tanggal_penerimaan = $data_mitrapengembalian->tanggal_pengembalian; // Assuming you want to use the same date
+            $data_mitra->yang_menerima = $data_mitrapengembalian->yang_menerima;
+            $data_mitra->status = 'DITERIMA';
+    
+            $data_mitra->save();
+    
+            // Optional: Delete data from DataMitraPengembalian if needed
+            $data_mitrapengembalian->delete();
+    
+            // Redirect to DataPenerima index
+            return redirect()->route('data_mitra.index')->with('success', 'Data berhasil diperbarui dan dipindahkan ke DataPenerima!');
+        }
+        $data_mitrapengembalian->save();
+        // Redirect after the update operation
+        return redirect()->route('data_mitrapengembalian.index')->with('success', 'Status berhasil diperbarui!');
+    }
+    
+ 
 
     public function destroy($id)
     {

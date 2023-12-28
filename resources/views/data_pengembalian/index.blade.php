@@ -36,7 +36,7 @@ use Carbon;
             <th style="text-align: center;">Jumlah</th>
             <th style="text-align: center;">Serial <br> Number</th>
             <th style="text-align: center;">Kelengkapan <br> Barang</th>
-            <th style="text-align: center;">Tanggal <br> Penerimaan</th>
+            <th style="text-align: center;">Tanggal <br> Pengembalian</th>
             <th style="text-align: center;">Status</th>
             <th style="text-align: center;">Action</th>
                     </tr>
@@ -79,10 +79,11 @@ use Carbon;
                                         </a>
                                         <form method="POST" action="{{ route('data_pengembalian.destroy', $barang->id) }}" onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">
                                             @csrf
-                                            @method('DELETE')
+                                            @method('POST')
                                             <button type="submit" class="dropdown-item">
                                                 <i class="bx bx-trash me-1"></i>Delete
                                             </button>
+                                        </form>    
                                     </div>
                                 </div>
                             </td>

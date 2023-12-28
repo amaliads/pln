@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('data_penerima_id');
             $table->date('tanggal');
+            $table->enum('status', ['Diterima', 'Dikembalikan'])->default('Diterima');
             // tambahkan kolom lain yang diperlukan
             $table->timestamps();
         

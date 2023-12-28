@@ -70,7 +70,7 @@ Route::get('data_penerimas/data_penerimas_pdf/{id}', [DataPenerimasController::c
 Route::get('data_pengembalian', [DataPengembalianController::class, 'index'])->name('data_pengembalian.index');
 Route::get('data_pengembalian/edit/{id}', [DataPengembalianController::class, 'edit'])->name('data_pengembalian.edit');
 Route::post('data_pengembalian/update/{id}', [DataPengembalianController::class, 'update'])->name('data_pengembalian.update');
-Route::post('data_pengembalian/delete/{id}', [DataPengembalianController::class, 'destroy'])->name('data_pengembalian.destroy');
+Route::delete('data_pengembalian/delete/{id}', [DataPengembalianController::class, 'destroy'])->name('data_pengembalian.destroy');
 Route::get('data_pengembalian/search', [DataPengembalianController::class, 'search'])->name('data_pengembalian.search');
 Route::get('data_pengembalian/data_pengembalian_pdf', [DataPengembalianController::class, 'data_pengembalian_pdf'])->name('data_pengembalian.data_pengembalian_pdf');
 

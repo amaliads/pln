@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('jumlah_barang');
             $table->string('kelengkapan_barang');
             $table->date('tanggal_penerimaan');
+            $table->date('tanggal_pengembalian')->nullable();
             $table->string('yang_menerima');
             $table->string('status');
             $table->timestamps();

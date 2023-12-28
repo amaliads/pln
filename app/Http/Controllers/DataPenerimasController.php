@@ -56,48 +56,86 @@ class DataPenerimasController extends Controller
         return view('data_penerimas.edit', compact('data_penerimas'));
     }
 
-    public function update(Request $request, $id){
-        $this->validate($request,[
+    public function update(Request $request, $id)
+{
+    $this->validate($request, [
+        'nama_pegawai' => 'required|string',
+        'NIP' => 'required|string',
+        'jabatan' => 'required|string',
+        'type_barang' => 'required|string',
+        'jenis_barang' => 'required|string',
+        'merk_barang' => 'required|string',
+        'jumlah_barang' => 'required|integer',
+        'serial_number' => 'required|string',
+        'kelengkapan_barang' => 'required|string',
+        'tanggal_penerimaan' => 'required|date',
+        'status' => 'required|in:DITERIMA,DIKEMBALIKAN',
+    ]);
+
+    // Find the existing DataPenerimas record
+    $data_penerimas = DataPenerimas::find($id);
+
+    if (!$data_penerimas) {
+        return redirect()->route('data_penerimas.index')->with('error', 'Data tidak ditemukan.');
+    }
+
+    // Update the fields based on the request data
+    $data_penerimas->nama_pegawai = $request->nama_pegawai;
+    $data_penerimas->NIP = $request->NIP;
+    $data_penerimas->jabatan = $request->jabatan;
+    $data_penerimas->type_barang = $request->type_barang;
+    $data_penerimas->jenis_barang = $request->jenis_barang;
+    $data_penerimas->merk_barang = $request->merk_barang;
+    $data_penerimas->jumlah_barang = $request->jumlah_barang;
+    $data_penerimas->serial_number = $request->serial_number;
+    $data_penerimas->kelengkapan_barang = $request->kelengkapan_barang;
+    $data_penerimas->tanggal_penerimaan = $request->tanggal_penerimaan;
+    $data_penerimas->status = $request->status;
+
+    // Check if the status is 'DIKEMBALIKAN' for additional validation
+    if ($request->status === 'DIKEMBALIKAN') {
+        $this->validate($request, [
             'tanggal_pengembalian' => 'required|date',
         ]);
-        $data_penerimas = DataPenerimas::find($id);
-        $data_penerimas->nama_pegawai = $request->nama_pegawai;
-        $data_penerimas->NIP = $request->NIP;
-        $data_penerimas->jabatan = $request->jabatan;
-        $data_penerimas->type_barang = $request->type_barang;
-        $data_penerimas->jenis_barang = $request->jenis_barang;
-        $data_penerimas->merk_barang = $request->merk_barang;
-        $data_penerimas->jumlah_barang = $request->jumlah_barang;
-        $data_penerimas->serial_number = $request->serial_number;
-        $data_penerimas->kelengkapan_barang = $request->kelengkapan_barang;
-        $data_penerimas->tanggal_penerimaan = $request->tanggal_penerimaan;
-        $data_penerimas->tanggal_pengembalian = $request->tanggal_pengembalian;
-        $data_penerimas->status = $request->status;
-            // Jika status DIKEMBALIKAN, pindahkan data ke DataPengembalian
-            if ($request->status === 'DIKEMBALIKAN') {
-                $data_pengembalian = new DataPengembalian();
-                $data_pengembalian->nama_pegawai = $data_penerimas->nama_pegawai;
-                $data_pengembalian->NIP = $data_penerimas->NIP;
-                $data_pengembalian->jabatan = $data_penerimas->jabatan;
-                $data_pengembalian->type_barang = $data_penerimas->type_barang;
-                $data_pengembalian->jenis_barang = $data_penerimas->jenis_barang;
-                $data_pengembalian->merk_barang = $data_penerimas->merk_barang;
-                $data_pengembalian->jumlah_barang = $data_penerimas->jumlah_barang;
-                $data_pengembalian->serial_number = $data_penerimas->serial_number;
-                $data_pengembalian->kelengkapan_barang = $data_penerimas->kelengkapan_barang;
-                $data_pengembalian->tanggal_pengembalian = $data_penerimas->tanggal_pengembalian;
-                $data_pengembalian->status = $data_penerimas->status;
-            
-                $data_pengembalian->save();
-                
-                // Opsional: Hapus data dari DataPenerimas jika dibutuhkan
-                $data_penerimas->delete();
-            }
-            
-            // Redirect setelah operasi penyimpanan dilakukan
-            return redirect()->route('data_penerimas.index')->with('success', 'Status berhasil diperbarui!');
+
+        // If validation passes, move data to DataPengembalian
+        $data_pengembalian = new DataPengembalian();
+        $data_pengembalian->nama_pegawai = $data_penerimas->nama_pegawai;
+        $data_pengembalian->NIP = $data_penerimas->NIP;
+        $data_pengembalian->jabatan = $data_penerimas->jabatan;
+        $data_pengembalian->type_barang = $data_penerimas->type_barang;
+        $data_pengembalian->jenis_barang = $data_penerimas->jenis_barang;
+        $data_pengembalian->merk_barang = $data_penerimas->merk_barang;
+        $data_pengembalian->jumlah_barang = $data_penerimas->jumlah_barang;
+        $data_pengembalian->serial_number = $data_penerimas->serial_number;
+        $data_pengembalian->kelengkapan_barang = $data_penerimas->kelengkapan_barang;
+
+        // Set 'tanggal_pengembalian' only if provided in the request
+        $data_pengembalian->tanggal_pengembalian = $request->has('tanggal_pengembalian') ? $request->tanggal_pengembalian : null;
+
+        $data_pengembalian->status = $data_penerimas->status;
+
+        $data_pengembalian->save();
+
+        // Optional: Delete data from DataPenerimas if needed
+        $data_penerimas->delete();
+
+        // Redirect to DataPengembalian index
+        return redirect()->route('data_pengembalian.index')->with('success', 'Data berhasil diperbarui!');
     }
-    public function destroy($id){
+
+    // Save the updated DataPenerimas record
+    $data_penerimas->save();
+    
+
+    // Redirect to DataPenerimas index
+    return redirect()->route('data_penerimas.index')->with('success', 'Data berhasil diperbarui!');
+}
+
+
+    
+    
+      public function destroy($id){
         $data_penerimas = DataPenerimas::find($id);
         $data_penerimas->delete();
         return redirect('data_penerimas')->with(['flash_message' => 'Data Berhasil Dihapus', 'flash_color' => 'danger']);
@@ -147,6 +185,7 @@ class DataPenerimasController extends Controller
         // Assuming you have variables $hari, $tanggal, $bulan, $tahun
         return view('data_penerimas.data_penerimas_pdf', compact('data_penerimas', 'data_pegawai' ,'hari', 'tanggal', 'bulan', 'tahun', 'jenis_barang','merk_barang', 'serial_number','kelengkapan_barang'));
     }
+    
 
     public function data_penerima_tabelpdf() {
         $data_penerimas = DataPenerimas::all();

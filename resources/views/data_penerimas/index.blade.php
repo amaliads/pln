@@ -99,6 +99,7 @@
             <button type="submit" class="dropdown-item">
                 <i class="bx bx-trash me-1"></i>Delete
             </button>
+        </form>    
         <a class="dropdown-item" href="{{ route('data_penerimas.data_penerimas_pdf', ['id' => $item->id]) }}">
         <i class='bx bx-printer me-1'></i> Print
         </a>
@@ -110,12 +111,6 @@
             @endforeach
         </tbody>
     </table>
-
-    <div class="pull-left">
-        <strong>
-            Jumlah Penerima: {{ $jumlah_penerima }}
-        </strong>
-    </div> 
 </div>
 @endsection  
 @section('script')

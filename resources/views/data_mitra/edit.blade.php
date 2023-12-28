@@ -18,7 +18,7 @@
         @csrf
         @method('post') <!-- Anda perlu menambahkan metode PUT untuk pembaruan -->
         <div class="mb-3">
-            <label for="mitra_pengirim">Nama Pegawai</label>
+            <label for="mitra_pengirim">Nama Mitra</label>
             <input type="text" name="mitra_pengirim" id="mitra_pengirim" class="form-control" value="{{ $data_mitra->mitra_pengirim}}">
         </div>
         <div class="mb-3">
@@ -61,7 +61,7 @@
         </div>
         <div class="mb-3">
     <label for="tanggal_pengembalian" id="tanggal_pengembalian_label" style="display: none;">Tanggal Pengembalian</label>
-    <input type="date" name="tanggal_pengembalian" id="tanggal_pengembalian" class="form-control" required>
+    <input type="date" name="tanggal_pengembalian" id="tanggal_pengembalian" class="form-control" style="display: none;">
 </div>
 
 <div class="form-group">
@@ -102,6 +102,21 @@
             // atau lakukan proses lain yang diperlukan
             alert('Proses pengembalian dilakukan!');
         });
+        function toggleDateInput() {
+        var tanggalPengembalianLabel = document.getElementById('tanggal_pengembalian_label');
+        var tanggalPengembalianInput = document.getElementById('tanggal_pengembalian');
+
+        // Jika elemen tersembunyi, tampilkan dan buat wajib diisi
+        if (tanggalPengembalianLabel.style.display === 'none') {
+            tanggalPengembalianLabel.style.display = 'block';
+            tanggalPengembalianInput.style.display = 'block';
+            tanggalPengembalianInput.required = true; // Tambahkan atribut required
+        } else { // Jika terlihat, sembunyikan dan hapus kewajiban diisi
+            tanggalPengembalianLabel.style.display = 'none';
+            tanggalPengembalianInput.style.display = 'none';
+            tanggalPengembalianInput.required = false; // Hapus atribut required
+        }
+    }
     });
 </script>
     </form>

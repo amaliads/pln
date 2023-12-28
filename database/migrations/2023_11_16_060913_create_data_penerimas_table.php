@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('serial_number');
             $table->string('kelengkapan_barang');
             $table->date('tanggal_penerimaan');
+            $table->date('tanggal_pengembalian')->nullable();
             $table->enum('status', ['Diterima', 'Dikembalikan'])->default('Diterima');
             $table->timestamps();
         });

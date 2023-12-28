@@ -11,7 +11,7 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-    <h2 class="card-title text-center" style="font-weight: bold; font-size: 24px;">EDIT DATA PENERIMA BARANG PEGAWAI</h2>
+    <h2 class="card-title text-center" style="font-weight: bold; font-size: 24px;">EDIT DATA PENGEMBALIAN BARANG PEGAWAI</h2>
     <form method="POST" action="{{ route('data_pengembalian.update', $data_pengembalian->id) }}">
         @csrf
         @method('POST') <!-- Anda perlu menambahkan metode PUT untuk pembaruan -->
@@ -58,9 +58,13 @@
             <textarea name="kelengkapan_barang" id="kelengkapan_barang" class="form-control" rows="3">{{ $data_pengembalian->kelengkapan_barang }}</textarea>
         </div>
         <div class="form-group">
-            <label for="tanggal_pengembalian">Tanggal Penerimaan</label>
+            <label for="tanggal_pengembalian">Tanggal Pengembalian</label>
             <input type="date" name="tanggal_pengembalian" id="tanggal_pengembalian" class="form-control" value="{{ $data_pengembalian->tanggal_pengembalian }}">
         </div>
+        <div class="mb-3">
+    <label for="tanggal_penerimaan" id="tanggal_penerimaan_label" style="display: none;">Tanggal Penerimaan</label>
+    <input type="date" name="tanggal_penerimaan" id="tanggal_penerimaan" class="form-control" style="display: none;">
+</div>
         <div class="form-group">
             <p class="text-dark fw-medium d-block">Select Status Barang</p>
             <div class="form-check form-check-primary mt-3">
@@ -73,6 +77,50 @@
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="submit" class="btn btn-secondary" id="btnDikembalikan" style="display: none;">Diterima</button>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#status_diterima').click(function () {
+            $('#tanggal_penerimaan_label').show();
+            $('#tanggal_penerimaan').show();
+            $('#btnSimpan').hide();
+            $('#btnDiterima').show();
+        });
+
+        $('#status_dikembalikan').click(function () {
+            $('#tanggal_penerimaan_label').hide();
+            $('#tanggal_penerimaan').hide();
+            $('#btnSimpan').show();
+            $('#btnDiterima').hide();
+        });
+
+        $('#btnDiterima').click(function () {
+            // Lakukan aksi pengembalian disini
+            // Misalnya, submit form ke endpoint pengembalian
+            // atau lakukan proses lain yang diperlukan
+            alert('Proses penerimaan dilakukan!');
+        });
+    });
+
+    // Fungsi untuk menampilkan/menyembunyikan input dan label
+    function toggleDateInput() {
+        var tanggalPenerimaanLabel = document.getElementById('tanggal_penerimaan_label');
+        var tanggalPenerimaanInput = document.getElementById('tanggal_penerimaan');
+
+        // Jika elemen tersembunyi, tampilkan dan buat wajib diisi
+        if (tanggalPenerimaanLabel.style.display === 'none') {
+            tanggalPenerimaanLabel.style.display = 'block';
+            tanggalPenerimaanInput.style.display = 'block';
+            tanggalPenerimaanInput.required = true; // Tambahkan atribut required
+        } else { // Jika terlihat, sembunyikan dan hapus kewajiban diisi
+            tanggalPenerimaanLabel.style.display = 'none';
+            tanggalPenerimaanInput.style.display = 'none';
+            tanggalPenerimaanInput.required = false; // Hapus atribut required
+        }
+    }
+    
+</script>
     </form>
 </div>
 @endsection
